@@ -1,6 +1,6 @@
-### 자바 기초
+# 자바 기초
 
-#### Primitive Types
+## Primitive Types
 
 boolean : true/false
 char : 16비트 유니코드
@@ -8,11 +8,15 @@ byte : 8비트 integer
 short/int/long : 16/32/64 비트 integer
 float/double : 32/64 비트 floating-point (IEEE-754)
 
-####Reference Types
+
+
+## Reference Types
 
 자바에는 class와 array가 레퍼런스 타입이며 call by value가 아닌 call by reference로 전달된다. 다른 글을 보다가 이런 call by reference가 적용되는 것도 call by value라고 하는데 이 개념은 나중에 좀 더 알아보자. 또한 모든 class는 Object class의 subclass이다.
 
-#### Widening and Narrowing
+
+
+## Widening and Narrowing
 
 ```java
 int i = 10;
@@ -26,7 +30,9 @@ d = m;
 
 위 코드처럼 넓은 범위의 타입에서 좁은 범위로 캐스팅하는 것을 Narrowing이라 하고 좁은 범위의 타입에서 넓은 범위로 캐스팅하는 것을 Widening이라고 한다. **Widening을 할 때는 캐스팅이 필요없다.** 이걸 ***Automatic Widening***이라고 한다.
 
-#### Escape Sequence
+
+
+## Escape Sequence
 
 1. \n : NEW LINE 추가
 2. \t : TAB 추가
@@ -37,7 +43,9 @@ d = m;
 7. \" : DOUBLE QUOTE CHARACTER 추가
 8. \\\ : BACKSLASCH CHARACTER 추가 
 
-#### Array
+
+
+## Array
 
 ```java
 int[] ia = new int[3];
@@ -47,7 +55,9 @@ int[] ia = {1, 2, 3};
 
 위와 같이 array가 표현될 수 있으며 bound-check는 dynamic checking이다. 만약 정해진 인덱스의 범위를 넘는 값을 참조했다면 **ArrayIndexOutOfBoundsException**이 발생한다.
 
-#### toString() 메소드
+
+
+## toString() 메소드
 
 toString()은 클래스에 기본적으로 있는 함수이다. 객체를 출력한다고 했을 때 기본적으로 다음과 같이 적용된다. 
 
@@ -72,7 +82,7 @@ System.out.println(" Point --> " + p);
 
 이런 방식으로 재정의하면 자신만의 문장으로 객체를 표현할 수 있다.
 
-#### Method와 Field의 Modifers
+## Method와 Field의 Modifers
 
 1. Method와 Field 둘 다 되는 경우
 
@@ -86,7 +96,7 @@ abstract, synchronized, native
 
 volatile, transient
 
-#### synchronized/native/volatile/transient
+### synchronized/native/volatile/transient
 
 * synchronized
 
