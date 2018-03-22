@@ -2,7 +2,7 @@
 
 이름 그대로 어떠한 이벤트나 문제가 발생했을 때 그 문제의 처리를 단일객체에게 맡기는 것이 아니라 다른 객체에도 처리할 수 있는 기회를 주는 패턴이다. 문제처리가 가능하지 않으면 다음 객체로 보내는 방식이기 때문에 객체들이 사슬처럼 연결되어 있다.  여기서 이벤트나 문제를 던지는 객체가 **명령 객체**이며 그걸 처리하는 일련의 객체집합이 **처리 객체**이다. 
 
-![Alt text](JAVA/Chain of Responsibility Pattern.jpg)
+![chain of responsibility pattern](https://user-images.githubusercontent.com/35518072/37784006-375b2690-2e3a-11e8-88c6-6548c7175697.jpg)
 
 다음과 같이 명령객체인 Sender가 존재하고 처리객체의 슈퍼클래스인 Handler가 존재하여서 오른쪽의 시퀀스 다이어그램에서 receiver 1,2,3에 차례대로 handling을 시킴으로 명령을 처리하고 있음을 알 수 있다.
 
