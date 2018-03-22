@@ -2,11 +2,11 @@
 
 ## Primitive Types
 
-boolean : true/false
-char : 16비트 유니코드
-byte : 8비트 integer
-short/int/long : 16/32/64 비트 integer
-float/double : 32/64 비트 floating-point (IEEE-754)
+* boolean : true/false
+* char : 16비트 유니코드
+* byte : 8비트 integer
+* short/int/long : 16/32/64 비트 integer
+* float/double : 32/64 비트 floating-point (IEEE-754)
 
 
 
