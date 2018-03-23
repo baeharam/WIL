@@ -2,7 +2,7 @@
 
 ## BCNF의 정의
 
-> *"A relation R is in BCNF if and only if: whether there is a nontrivial FD A<sub>1</sub>A<sub>2</sub>...An → B~1~B~2~...B~m~ for R, it is the case that {A~1~, A~2~, ..., A~n~} is a super key for R"*
+> *"A relation R is in BCNF if and only if: whether there is a nontrivial FD A<sub>1</sub>A<sub>2</sub>...A<sub>n</sub> → B<sub>1</sub>B<sub>2</sub>...B<sub>m</sub> for R, it is the case that {A<sub>1</sub>, A<sub>2</sub>, ..., A<sub>n</sub>} is a super key for R"*
 
 즉, relation R의 non-trival FD에 대해서 left side가 primary key를 포함한 super key라면 relation R이 BCNF에 있다고 한다.
 
@@ -54,9 +54,9 @@ A와 B가 둘 다 primary key이다. 모든 FD는 left side로 반드시 A 혹�
 
 1. 주어진 relation R이 BCNF에 있는지 확인한다. 있으면 R이 답이다.
 2. 만약 BCNF 조건을 위반한다면 조건을 위반하는 X→Y라는 FD에 대해  X의 Closure인 X^+^ 를 계산하자.
-3. R~1~ = X^+^ 라고 하고 R~2~ = X와 X^+^를 제외한 나머지 attributes 라고 하자.
-4. R~1~과 R~2~의 set of FDs를 S~1~, S~2~라고 하자.
-5. 재귀적으로 R~1~과 R~2~를 알고리즘을 통해 Decomposing 한 후에 그 union을 반환하자.
+3. R<sub>1</sub> = X^+^ 라고 하고 R<sub>2</sub> = X와 X^+^를 제외한 나머지 attributes 라고 하자.
+4. R<sub>1</sub>과 R<sub>2</sub>의 set of FDs를 S~1~, S~2~라고 하자.
+5. 재귀적으로 R<sub>1</sub>과 R<sub>2</sub>를 알고리즘을 통해 Decomposing 한 후에 그 union을 반환하자.
 
 
 
@@ -81,14 +81,14 @@ X^+^ = {studioName}
 → X^+^ = {studioName, president} (studioName → president)  
 → X^+^ = {studioName, president, presAddr} (president → presAddr)
 
-4. **R~1~과 R~2~ 초기화**
+4. **R<sub>1</sub>과 R<sub>2</sub> 초기화**
 
-R~1~ = {studioName, president, presAddr} = X^+^  
-R~2~ = {title, year, studioName} = X + X^+^를 제외한 나머지 attributes
+R<sub>1</sub> = {studioName, president, presAddr} = X^+^  
+R<sub>2</sub> = {title, year, studioName} = X + X^+^를 제외한 나머지 attributes
 
-5. **S~1~과 S~2~ 초기화**
+5. **S<sub>1</sub>과 S<sub>2</sub> 초기화**
 
-   * Set of FDs for R~1~ = S~1~
+   * Set of FDs for R<sub>1</sub> = S<sub>1</sub>
 
    studioName → president  
    studioName → presAddr  
@@ -96,7 +96,7 @@ R~2~ = {title, year, studioName} = X + X^+^를 제외한 나머지 attributes
 
    primary key인 studioName을 president가 포함하고 있는 super key가 아니므로 조건을 위반한다.
 
-   * Set of FDs for R~2~ = S~2~
+   * Set of FDs for R<sub>2</sub> = S<sub>2</sub>
 
    title year → studioName
 
@@ -111,16 +111,16 @@ X^+^ ={president}^+^
 
 7. **R~1~과 R~2~를 초기화**
 
-R~1~ = {president, presAddr}  
-R~2~ = {studioName, president}
+R<sub>1</sub> = {president, presAddr}  
+R<sub>2</sub> = {studioName, president}
 
-8. **S~1~과 S~2~를 초기화**
+8. **S<sub>1</sub>과 S<sub>2</sub>를 초기화**
 
-   * Set of FDs for R~1~ = S~1~
+   * Set of FDs for R<sub>1</sub> = S<sub>1</sub>
 
    Attributes가 2개인 realtion은 항상 BCNF 안에 있다는 것을 위에서 증명했음!
 
-   *  Set of FDs for R~2~ = S~2~
+   *  Set of FDs for R<sub>2</sub> = S<sub>2</sub>
 
    위와 같음
 
