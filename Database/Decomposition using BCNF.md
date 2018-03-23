@@ -109,7 +109,7 @@ X^+^ ={president}^+^
 → X^+^ = {president, presAddr} (president → presAddr)  
 → X^+^ = {president, presAddr}
 
-7. **R~1~과 R~2~를 초기화**
+7. **R<sub>1</sub>과 R<sub>2</sub>를 초기화**
 
 R<sub>1</sub> = {president, presAddr}  
 R<sub>2</sub> = {studioName, president}
