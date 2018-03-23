@@ -6,6 +6,15 @@
 
 다음과 같이 명령객체인 Sender가 존재하고 처리객체의 슈퍼클래스인 Handler가 존재하여서 오른쪽의 시퀀스 다이어그램에서 receiver 1,2,3에 차례대로 handling을 시킴으로 명령을 처리하고 있음을 알 수 있다.
 
+## 목적
+
+1. To **avoid coupling the sender of a request to its receiver**, by giving more than one object a chance to handle the request.
+2. **to isolate the clients from knowledge of how responsibilities are assigned**
+
+명령객체와 처리객체를 분리하여 유지보수가 용이하고 명령객체는 처리객체들이 명령을 어떻게 처리하는지 몰라도 상관이 없다.
+
+
+
 ## Yuki의 코드
 
 ```java

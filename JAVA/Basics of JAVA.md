@@ -112,6 +112,8 @@ native는 JAVA로 작성된 코드가 아닌 다른 언어로 작성된 코드�
 
 > *“… the volatile modifier guarantees that any thread that reads a field will see the most recently written value.”* **- Josh Bloch**
 
+Prevent the compiler from optimizing a volatile variable. (OODP 수업)
+
 * transient
 
 native와는 반대로 JAVA를 다른 곳에서 사용할려면 직렬화(Serializing)을 거쳐야 한다. 하지만 그렇게 직렬화 될 때 transient 키워드가 붙은 필드 값은 직렬화시키지 않는 개념이다.
