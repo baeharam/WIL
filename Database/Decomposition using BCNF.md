@@ -62,7 +62,7 @@ A와 B가 둘 다 primary key이다. 모든 FD는 left side로 반드시 A 혹�
 
 ## 예제
 
-**R {title, year, studioName, president, presAddr}**이라는 relation이 있다고 하자. primary key는 {title, year}임을 알 수 있지만 non-trivial FD를 만족하지 않는 경우가 존재 한다.
+**R {title, year, studioName, president, presAddr}** 이라는 relation이 있다고 하자. primary key는 {title, year}임을 알 수 있지만 non-trivial FD를 만족하지 않는 경우가 존재 한다.
 
 1. **BCNF에 있는지 확인하기**
 
@@ -149,7 +149,7 @@ R~2~ = {studioName, president}
 
 ## 예제
 
-**OriginalMovie{title, year, length, filmType, studioName, starName}**이 있다고 하자.
+**OriginalMovie{title, year, length, filmType, studioName, starName}** 이 있다고 하자.
 
 * Functionally determine하는 possible key를 전부 찾아 closure를 찾는다.
 
