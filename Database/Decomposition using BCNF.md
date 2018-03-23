@@ -10,7 +10,7 @@
 
 ## 예제 1
 
-**Movies1{title, year, length, genre, studioName, starName}**과 같은 relation이 있다고 했을 때 {title, year, starName}을 primary key로 다른 모든 attributes를 결정한다고 할 수 있기 때문에 <u>super key는 {title, year, starName}이 포함되어 있는 set of attributes이다.</u>
+**Movies1{title, year, length, genre, studioName, starName}** 과 같은 relation이 있다고 했을 때 {title, year, starName}을 primary key로 다른 모든 attributes를 결정한다고 할 수 있기 때문에 <u>super key는 {title, year, starName}이 포함되어 있는 set of attributes이다.</u>
 
 하지만 다음과 같은 non-trivial FD가 존재한다.
 
@@ -22,7 +22,7 @@ left side인 {title, year}가 primary key인 {title, year, starName}을 포함�
 
 ## 예제 2
 
-**Movies2{title, year, length, genre, studioName}**과 같은 relation이 있다고 하자. 위 예제에서 starName attribute를 제거한 relation이다. 여기서의 primary key는 당연히 starName이 없기 때문에 {title, year}이다. 여기서 다음 조건들을 만족한다.
+**Movies2{title, year, length, genre, studioName}** 과 같은 relation이 있다고 하자. 위 예제에서 starName attribute를 제거한 relation이다. 여기서의 primary key는 당연히 starName이 없기 때문에 {title, year}이다. 여기서 다음 조건들을 만족한다.
 
 * title과 year 모두 혼자서 다른 attributes를 functionally determine 할 수 없다.
 * {title, year}가 반드시 있어야만 다른 attributes를 non-trival functionally determine 할 수 있기 때문에 left side는 항상 super key가 된다. 
