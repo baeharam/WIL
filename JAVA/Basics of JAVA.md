@@ -28,7 +28,7 @@ m = (long)d;
 d = m;
 ```
 
-위 코드처럼 넓은 범위의 타입에서 좁은 범위로 캐스팅하는 것을 Narrowing이라 하고 좁은 범위의 타입에서 넓은 범위로 캐스팅하는 것을 Widening이라고 한다. **Widening을 할 때는 캐스팅이 필요없다.** 이걸 ***Automatic Widening***이라고 한다.
+위 코드처럼 넓은 범위의 타입에서 좁은 범위로 캐스팅하는 것을 Narrowing이라 하고 좁은 범위의 타입에서 넓은 범위로 캐스팅하는 것을 Widening이라고 한다. **Widening을 할 때는 캐스팅이 필요없다.** 이걸 **Automatic Widening**이라고 한다.
 
 
 
