@@ -2,7 +2,7 @@
 
 ## BCNF의 정의
 
-> *"A relation R is in BCNF if and only if: whether there is a nontrivial FD (A)~1~A~2~...A~n~ → B~1~B~2~...B~m~ for R, it is the case that {A~1~, A~2~, ..., A~n~} is a super key for R"*
+> *"A relation R is in BCNF if and only if: whether there is a nontrivial FD A(~1~)A(~2~)...A~n~ → B~1~B~2~...B~m~ for R, it is the case that {A~1~, A~2~, ..., A~n~} is a super key for R"*
 
 즉, relation R의 non-trival FD에 대해서 left side가 primary key를 포함한 super key라면 relation R이 BCNF에 있다고 한다.
 
