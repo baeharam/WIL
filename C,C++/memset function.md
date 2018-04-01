@@ -1,6 +1,6 @@
 ## memset 함수
 
-[BOJ 11062번](https://www.acmicpc.net/problem/11062) 문제를 풀다가 많은 분들이 memset 함수를 사용하여 전역변수를 -1로 초기화 하시길래, 정의와 원리를 조금 더 면밀히 알아보았다.
+[BOJ 11062번](https://www.acmicpc.net/problem/11062) 문제를 풀다가 많은 분들이 memset 함수를 사용하여 전역변수를 -1로 초기화 하시길래, 정의와 원리를 조금 더 알아보았다.
 
 먼저 memset함수는 주어진 크기의 bytes를 전부 1byte씩 char로 변환된 int형 변수로 초기화 하는 함수이다. 무슨 말인지는 다음 정의와 코드를 보자.
 
