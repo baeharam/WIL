@@ -10,7 +10,7 @@
 
 Observer 클래스는 추상클래스로 구체적으로 구현된 ConcreteObserverA와 ConcreteObserverB 클래스를 가진다. 실제, 옵저버로 사용하는 객체는 이 2가지이다.
 
-Subject 클래스는 "이벤트를 발생시키는 주체"이다. Subject 클래스 내부에서 옵저버 객체를 **등록(Register)/제거(Unregister)**한다. 따라서 Subject 클래스에 등록된 옵저버 객체들만이 Subject 객체에서 발생한 이벤트에 대해 감지할 수 있다.
+Subject 클래스는 "이벤트를 발생시키는 주체"이다. Subject 클래스 내부에서 옵저버 객체를 **등록(Register)/제거(Unregister)** 한다. 따라서 Subject 클래스에 등록된 옵저버 객체들만이 Subject 객체에서 발생한 이벤트에 대해 감지할 수 있다.
 
 이벤트가 발생하면 *notifyObservers()* 메소드를 통해서 등록된 각 옵저버 객체로 *notify()* 메소드를 호출한다. 따라서 Subject 객체에서 이벤트가 발생하면 옵저버 객체가 바로 감지하여 어떤 메시지를 출력할 수 있을 뿐더러, 옵저버 자신이 생성한 인자값을 전달할 수도 있다.
 
