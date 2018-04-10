@@ -7,7 +7,19 @@
 > 3. singleton 클래스는 Object-Oriented principles를 따르지만 static 클래스는 그렇지 않다.
 > 4. singleton 클래스로 interface를 구현할 수 있지만 class의 static methods는 불가능하다.
 
-[Difference between static class and singleton pattern?](https://stackoverflow.com/a/12367609/9437175)에서 이해하기 쉬운 글을 따왔다.  다시 말해서, singleton 클래스는 static 클래스와는 다르게 일반 클래스처럼 여겨진다는 것이다. 다른 분의 글을 보면 함께 묶여야 할 functions가 존재한다면 static 클래스로 만들고 그게 아니라 어떤 resources에 대해 single access를 필요로 한다면 singleton 클래스로 만들라고 한다. 아직까지 정확하게 짜본 경험이 없어서 완벽하게 와닿지는 않지만 일단 정의는 이 정도로 정리하자.
+[Difference between static class and singleton pattern?](https://stackoverflow.com/a/12367609/9437175)에서 이해하기 쉬운 글을 따왔다.  **다시 말해서, singleton 클래스는 static 클래스와는 다르게 일반 클래스처럼 여겨진다는 것이다.** 다른 분의 글을 보면 함께 묶여야 할 functions가 존재한다면 static 클래스로 만들고 그게 아니라 어떤 resources에 대해 single access를 필요로 한다면 singleton 클래스로 만들라고 한다. 아직까지 정확하게 짜본 경험이 없어서 완벽하게 와닿지는 않지만 일단 정의는 이 정도로 정리하자.
+
+![500px-singleton_uml_class_diagram svg](https://user-images.githubusercontent.com/35518072/38546709-4e7909d4-3ce8-11e8-80dd-12b8d331f06f.png)
+
+싱글톤 패턴에 대한 UML이 없어서 새로 추가했다. 확실히 디자인 패턴은 UML로 이해해야 직관적이다. 위 UML을 보면 Singleton 클래스가 다음 변수와 메소드를 가지고 있는 것을 알 수 있다.
+
+* **private static Singleton singleton**
+* **private Singleton(){}**
+* **public static Singleton(){}**
+
+위 3개의 변수와 메소드는 싱글톤 패턴이 반드시 가져야 하는 것들을 뜻한다. 이 3가지 형식은 반드시 기억하도록 하자.
+
+
 
 ## 전통적인 싱글톤 코드
 
