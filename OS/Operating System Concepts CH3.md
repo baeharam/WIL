@@ -31,7 +31,6 @@
   * memory management information (memory에 load해야 하므로)
   * accounting information : CPU 사용량, processs 정보 등
   * I/O status ; 할당된 device 목록, open된 file list
-  * ​
 
 ### 문맥 전환(Context Switching)과 쓰레드(Thread)
 
@@ -39,6 +38,8 @@
 * **Thread** : 수행의 흐름
   * single thread : 한 순간에 1개의 task 실행
   * multiple thread (multi-thread programming) : 여러개의 program을 병렬적으로 실행하기 위한 것, 언어에서 지원을 하여야 하며 CPU가 지원을 해서 mapping이 되어야 한다. (짧은 전환으로 user에게 병렬처럼 느껴질 수 있는 것이다.)
+
+
 
 
 
@@ -129,7 +130,7 @@ UNIX에선 fork() 명령어를, Windows에서는 CreateProcess() 명령어를 �
 ### Process 생성시 수행형태 2가지
 
 1. parent process와 children process가 동시에 수행을 계속하는 경우
-2. parent process와 children process 중 일부 또는 전부가 수행을 종료할 때까지 기다리는 경우(waiting)
+2. parent process가 children process 중 일부 또는 전부가 수행을 종료할 때까지 기다리는 경우(waiting)
 
 ### 생성된 process에 대한 address space 형식 2가지
 
@@ -157,6 +158,8 @@ UNIX에선 fork() 명령어를, Windows에서는 CreateProcess() 명령어를 �
 
 
 * 그외의 것들 : Thread는 약식 process를 의미하며 API는 OS에 대해 high-level 언어적 차원에서 지원하는 것.
+
+
 
 
 
@@ -267,7 +270,7 @@ blocking은 producer가 buffer full일 때 wait하는 것과 같이 synchronous�
 * **blocking send** : message가 상대 process(또는 mailbox)에 전달 될 때까지 기다린다.
 * **nonblocking send** : message를 보내고 작업을 재시작한다. (OS지원)
 * **blocking receive** : message를 받을 때까지 기다린다.
-* **nonblocking receive** : message를 성공적으로 받거나 널(null)을 맏는다. (있으면 받고 없으면 안받는 개념)
+* **nonblocking receive** : message를 성공적으로 받거나 널(null)을 받는다. (있으면 받고 없으면 안받는 개념)
 
 ### Buffering(버퍼링)
 
@@ -290,7 +293,7 @@ message passing이 indirect이든, direct이든 process들에 의해 교환되�
 
 ### RPC(Remote Procedure Call)
 
-* network로 연결된 System 간의 procedure call (원격 시스템의 리턴 값을 얻는 것)
+* network로 연결된 System 간의 procedure call (원격 시스템의 procedure를 호출하여 매개변수를 보내기도 하고 출력 혹은 다른 형태로 리턴 값을 받기도 한다.)
 
 ### RMI(Remote Method Invocation)
 
