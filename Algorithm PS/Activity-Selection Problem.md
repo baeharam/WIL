@@ -24,7 +24,7 @@ $$
 c_{ij}=
 \begin{cases}
 0 \ &\text{if ($S_{i,j}=\emptyset$})\\
-max_{i<j<k}(c_{ik}+c_{kj}+1)(a_k\in S_{i,j}) \ &\text{if ($S_{i,j}\cancel =\emptyset$)}
+max_{i<k<j}(c_{ik}+c_{kj}+1)(a_k\in S_{i,j}) \ &\text{if ($S_{i,j}\cancel =\emptyset$)}
 \end{cases}
 $$
  위에서 설명한 대로 이해하면 간단한데, $S_{i,j}$에 어떤 회의도 없는 공집합의 경우 당연히 참석할 수 있는 회의는 없으므로 0이다. 다음은 $a_k$가 $S_{i,j}$안에 속했다면 optimal schedule이므로 일단 1개의 회의에 참석할 수 있는 것이다. 이제 나머지 양쪽의 schedule에서 optimal schedule을 다시 보면 되기 때문에 $c_{ik}+c_{kj}$를 해주는 것이다.  단, $c_{ik}, c_{kj}$를 구하는 방법에는 여러가지가 있을 수 있기 때문에 그 중 가장 큰 값을 구해주면 결과적으로 회의를 가장 많이 참석할 수 있는 수를 구할 수 있게 된다. 하지만 아까도 말했다시피 이렇게 선택하는 것이 최적해로 이어진다는 것을 증명해야 한다. 먼저 어떤 것을 증명해야 할지 theorem을 보자.
