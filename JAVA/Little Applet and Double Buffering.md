@@ -140,7 +140,7 @@ while문 안에선 만약 현재 실행되고 있는 Thread 객체가 bannerThre
 즉, 이 프로그램은 애플릿 뷰어가 종료될 때인 stop() 메소드가 호출될 때 bannerThread를 null로 만들기 때문에 while문의 조건은 Thread가 현재 실행되고 있다는 것을 말하고 계속 paint() 메소드를 호출함으로서 애플릿 뷰어에 텍스트가 계속 나타나도록 하는 것이다. 어느 정도의 로직은 이해됬지만 아직 찜찜한 부분이 paint(), repaint(), update() 메소드의 차이점이었다. 이것도 짚고 넘어가자
 
 * [paint(Graphics g)](https://docs.oracle.com/javase/9/docs/api/java/awt/Component.html#paint-java.awt.Graphics-) : 인자로 전달받은 Component 객체에 무언가를 그린다.
-* [update(Graphics g)](https://docs.oracle.com/javase/9/docs/api/java/awt/Component.html#update-java.awt.Graphics-) : 주어진 Component의 background를 칠하고 paint(Graphics g) 메소드를 호출한다. 이 때 계속해서 배경을 칠할 수 있기 때문에 **flicker(깜박거림)**이 발생한다. 이걸 없애기 위해 overriding 한다.
+* [update(Graphics g)](https://docs.oracle.com/javase/9/docs/api/java/awt/Component.html#update-java.awt.Graphics-) : 주어진 Component의 background를 칠하고 paint(Graphics g) 메소드를 호출한다. 이 때 계속해서 배경을 칠할 수 있기 때문에 **flicker(깜박거림)** 이 발생한다. 이걸 없애기 위해 overriding 한다.
 * [repaint()](https://docs.oracle.com/javase/9/docs/api/java/awt/Component.html#repaint--) : 사용자에 의해 호출될 수 있으며 GUI Thread에 어떠한 flag를 설정한다. GUI Thread는 주기적으로 flag를 체크하며 만약 flag가 설정되어있으면 update() 메소드를 호출하고 flag를 리셋한다.
 
 > 출처 : [굉장히 친절한 설명](http://justobjects.org/cowcatcher/browse/stdjava/slides/java-awt/awt/graph/slide.0.4.html), [이것도](https://www.guiguan.net/repaint-paint-and-update/)
