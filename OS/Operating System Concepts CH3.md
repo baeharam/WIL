@@ -7,8 +7,8 @@
   * process : an active entity (현재 돌아가고 있는 프로그램)
 * **process 실행 중 필요한 내용**
   * text section(code) : 프로그램 명령들, 메모리에 올라가 있다.
-  * 레지스터, program counter(PC, 현재 수행 or 다음 수행하는 명령어 위치가 저장된 레지스터)
-  * function call을 위한 stack dynamic의 stack, data를 위한 data section의 static, dynamic allocation을 위한 heap dynamic의 heap을 포함한다.
+  * Register contents, Program counter
+  * Stack (temporay data 포함), Data section (global variable 포함), Heap (dynamic allocation)
 
 ### 프로세스 상태(Process State)
 
@@ -45,7 +45,7 @@
 
 ## 3.2 프로세스 스케줄링(Process Scheduling)
 
-Multi-programming은 program을 여러개 수행하는 것을 허용하는 것이며 그 목적은 **CPU Utilization**을 최대화하기 위함이다. Time sharing은 짧은 주기로 CPU를 번갈아 사용하는 것이며 목적은 **Fair services**를 제공하기 위함이다. (Time sharing은 context switching으로 인한 overhead 때문에 CPU utilization이 저하된다.)
+Multi-programming은 program을 여러개 수행하는 것을 허용하는 것이며 그 목적은 **CPU Utilization**을 최대화하기 위함이다. Time sharing은 짧은 주기로 CPU를 번갈아 사용하는 것이며 목적은 user로 하여금 각 프로그램과  (Time sharing은 context switching으로 인한 overhead 때문에 CPU utilization이 저하된다.)
 
 따라서 multi-programming과 time sharing을 가능하게 하기 위해서 여러 개의 process 중 어떤 것을 선택할지 결정하는 시스템이 있어야 한다.
 
@@ -106,11 +106,11 @@ process state의 관점에서 봤을 때 CPU bound process만 계속 들어갈 �
 
 * **medium-term scheduler**
 
-swapping과 비슷한 개념으로 상황이 안 좋을 때 일부 작업을 잠시 memory에서 제거하여 degree of multiprogramming을 완화한다. 요즘 잘 쓰지 않는 이유는 memory가 비약적으로 발전했기 때문.
+swapping과 비슷한 개념으로 상황이 안 좋을 때 일부 작업을 잠시 memory에서 제거하여 degree of multiprogramming을 완화한다. Memory에서 process를 swap-out하고 다시 실행할 때 swap-in 시키기 때문에 swaipping이라고도 불린다. 요즘 잘 쓰지 않는 이유는 memory가 비약적으로 발전했기 때문.
 
 * **context switching**
 
-현재의 state를 save하고 다른 state를 restore하는 개념으로 실질적으로 user에게 의미있는 실행시간이 아닌 pure overhead(절차에 의한 시간)이 발생하기 때문에 짧을수록 좋다. 따라서 개선을 해야 하는데 hw적 개선으로는 state를 저장하는 register set을 여러개 유지하는 방법이 있다. 단, 비용이 비싸다.
+Kernel이 이전 process의 state를  PCB에 save하고 실행하기 위한 새로운 process의 state를 restore하는 개념으로 실질적으로 user에게 의미있는 실행시간이 아닌 pure overhead(절차에 의한 시간)이 발생하기 때문에 짧을수록 좋다. 따라서 개선을 해야 하는데 hw적 개선으로는 state를 저장하는 register set을 여러개 유지하는 방법이 있다. 단, 비용이 비싸다.
 
 
 
@@ -137,10 +137,10 @@ UNIX에선 fork() 명령어를, Windows에서는 CreateProcess() 명령어를 �
 1. child process가 parent process의 program과 data를 그대로 갖는 형식
 2. child process가 새로운 program으로서 memory에 load되는 형식
 
-### child process의 생성으로 인한 resource 제한
+### child process가 자원을 얻는 2가지 방법
 
-1. parent process의 resource의 subset 만을 공유하면 resource 과부하를 막을 수 있다.
-2. child process가 OS로부터 resource를 직접 얻을 수도 있다.
+1. child process가 OS로부터 resource를 얻는 경우
+2. parent process가 자기 resource의 subset만을 나눠주거나 공유하는 경우, resource 과부하를 막을 수 있다. 왜? child process의 생성을 제어할 수 있으니까
 
 ### 명령어
 
@@ -182,7 +182,10 @@ UNIX에선 fork() 명령어를, Windows에서는 CreateProcess() 명령어를 �
 ### Shared memory
 
 * memory의 특정 영역을 공유하는 것. (버퍼 공간이다)
-* read/write의 문제는 process에서 해결하며 협력하는 process의 일반적인 패러다임인 producer-consumer problem에 대해 생각해보아야 한다.
+* data의 형태나 위치는 OS가 아닌process에서 정한다.
+* 원래 process들끼리는 각자의 memory에 접근 못하게 되어있지만 shared memory 기법을 위해서 이 제한을 풀어준다.
+* 동일한 위치에 동시에 writing을 하게 될 경우 발생할 문제에 대하여 process에게 책임이 있다.
+* Cooperating processes의 개념을 알기 위해선 producer-consumer problem의 paradigm을 알아야 한다.
 
 ### Producer-Consumer problem
 
@@ -247,13 +250,13 @@ UNIX에선 fork() 명령어를, Windows에서는 CreateProcess() 명령어를 �
      * 각 pair 간에 exactly 1 link만 존재한다.
    * Naming(addressing) 형식
      * Symmetry : send(P, message), receive(Q, message)
-     * Asymmetry : send(P, message), receive(x, message) : 임의의 process인 x로부터 receive 하기 때문에 process와 message를 모두 알아낼 수 있다.
-   * 단점 : modularity가 결여되어 있어서 서로 끼치는 영향이 높다. 예를 들어 어떤 process의 pid가 변경되면 관련된 모든 process의 해당 명령을 수정해야 한다.
-2. **Indirect communication** : 어디다 놓는 개념
+     * Asymmetry : send(P, message), receive(x, message) : 임의의 process인 x로부터 receive 하기 때문에 process name과 message를 모두 알아낼 수 있다.
+   * 단점 : modularity가 결여되어 있어서 서로 끼치는 영향이 높다. 예를 들어 어떤 process의 identifier가 변경되면 관련된 모든 process의 명령을 수정해야 하는 hard coding을 해야 한다.
+2. **Indirect communication** : mailbox나 port로 보내고 받는다.
    * mailbox 개념 : 어떤 process가 mailbox를 create, 대개 받기 위해서 만듦
    * send(A, message), receive(A, message) 형태로 보내고 받는다.
    * Communication link
-     * mailbox를 공유하는 process간 link (n:n 관계)
+     * mailbox를 공유하는 process간 link가 설정된다.(n:n 관계)
      * 2개 이상의 process간 communication 가능
      * mailbox가 여러 개일 때 두 process 간의 여러개 link 가능
 
@@ -276,7 +279,7 @@ blocking은 producer가 buffer full일 때 wait하는 것과 같이 synchronous�
 
 message passing이 indirect이든, direct이든 process들에 의해 교환되는 message는 temporary queue에 들어가며 이 queue를 구현하는 방식은 3가지이다.
 
-* **zero capacity** : queue의 최대길이가 0이다. 즉 버퍼를 사용하지 않는 것이다. 반드시 blocking send/receive이다.
+* **zero capacity** : queue의 최대길이가 0이다. 즉 버퍼를 사용하지 않는 것이다. sender는 반드시 block된다.
 * **bounded capacity** : queue full일 때, sender가 block된다.
 * **unbounded capacity** : the sender never blocks. (queue full인 경우가 없으니까)
 
