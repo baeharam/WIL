@@ -132,7 +132,7 @@ SJF는 burst time을 보고 짧은 것 부터 순서를 매기면 p4-p1-p3-p2이
 | p3      | 2            | 9     |
 | p4      | 3            | 5     |
 
-#### 1) SJF
+####**1) SJF**
 
 뭔가 글로 이해하기가 어려워서 찾아봤더니 표를 재배치하는 것이 훨씬 쉽게 푸는 것이었다. (Gantt Chart 쓰는 것이 제일 편함..) 제일 먼저 시작하는 p1을 제외하고 나머지를 burst 오름차순으로 정렬하면,
 
@@ -153,7 +153,7 @@ SJF는 burst time을 보고 짧은 것 부터 순서를 매기면 p4-p1-p3-p2이
 
 따라서 $\frac{0+(8-1)+(12-3)+(17-2)}{4}=\frac{31}{4}$ 가 된다.
 
-#### 2) SRT
+####2. SRT
 
 이건 정말 이해하기가 어려웠다. FCFS나 SJF는 계산이 되게 간단한데 이건 arrival time이랑 burst를 잘 보면서 계산해야 한다. 위의 테이블을 한번 더 보자.
 
@@ -187,7 +187,7 @@ $$
 $$
 SJF의 단점은 긴 작업이 계속 기다릴 가능성이 있다는 것인데 이걸 **<u>indefinite blocking 또는 starvation</u>**이라고 한다. 긴 burst를 갖는 process가 계속하여 경쟁에서 밀릴 가능성이 있으며 수행이 됨을 보장할 수 없다는 뜻이다.
 
-### Priority scheduling (SJF의 일반적인 개념)
+### Priority scheduling (일반적인 개념)
 
 high priority process에 CPU를 할당하는데 만약 equal priority라면 FCFS를 적용한다.
 
@@ -255,7 +255,7 @@ Ready queue를 여러개의 level로 두는 idea로 queue가 1개일 경우 각 
 여러개의 queue를 두는 것은 mult-level queue scheduling과 동일하지만 queue간의 process 이동을 허용하며 queue간의 priority는 다음과 같이 정해진다.
 
 * high priority queue에 I/O bound process가 오도록 하는데 그 이유는 CPU burst time이 짧은 것부터 처리해야 average waiting time이 줄어들기 때문이다.
-* low priority queue에는 long CPU burst의 process가 오도록 유도한다.
+* low priority queue에는 long CPU burst의 process (=CPU bound process)가 오도록 유도한다.
 
 이렇게 priority 기준을 정하면 ready queue로 들어온 process는 high priority queue에 정해진 time quantum안에 수행이 완료되지 못할 경우, quantum이 더 큰 다음 queue로 넘어가고 그렇게 계속해서 넘어가면 마지막엔 FCFS가 적용된 queue로 넘어가게 된다. 
 
@@ -273,3 +273,104 @@ Ready queue를 여러개의 level로 두는 idea로 queue가 1개일 경우 각 
 
 
 
+
+## 5.5 Multi-Processor Scheduling
+
+multi-processor를 사용하는 이유는 load sharing(작업 분담)을 통해 효율을 높여 빠르게 하기 위함이다. 이 파트에서는 homogeneous한 경우만 고려하는데, 동일 종류의 CPU만 있다고 가정하는 것이다. 즉, processor는 ready queue에 있는 어떤 process도 수행가능하다는 것을 말한다.
+
+### Scheduling 형식
+
+#### (1) Asymmetric multi-processing
+
+CPU가 하는 일이 대등하지 않은 경우이다.
+
+* 1개의 processor가 scheduling에 관한 모든 실행을 담당한다.
+* 나머지 processor는 단순히 user code를 실행한다.
+* 장점 : Data sharing을 하게 되면 processor의 동시 접근으로 인한 data 일관성 문제가 발생할 수 있지만 1개의 processor만 scheduling에 관여하므로 그런 문제가 줄어든다. (=Simple 하다.)
+
+#### (2) Symmetric multi-processing (SMP)
+
+각 CPU는 스스로 scheduling을 하는데, 자신이 수행할 process를 직접 가져오는 것이며, 2가지 방법이 있다.
+
+* 각 processor마다 queue를 구성하거나, (대개 이 방법을 사용한다.)
+* 1개의 common ready queue를 둔다. (여러개의 CPU가 동시에 접근할 경우 data의 중복/손실 문제 발생가능)
+
+> 이건 공중전화를 한 번 생각해보자. 공중전화가 여러 개이고 각 공중전화별로 기다리는 줄이 있다면, 각 CPU마다 개별 ready queue를 구성한 것이며, 만약 한 줄 서기 운동과 같이 공중전화는 여러개인데, 줄이 1개만 있다면 1개의 common ready queue를 둔 것이다.
+
+
+
+### Processor Affinity
+
+Multi-processor system에서 process가 동일 procesor에서 실행되도록 하는 개념으로, CPU를 놓고 다시 해당 process를 수행할 때도, 똑같은 CPU로 수행하는 개념이다. (= 친화도)
+
+#### 필요성
+
+* Cache는 register 급의 속도로 memory의 일부분을 사용하는 것인데, 만약 다른 CPU를 사용하게 될 경우 cache가 재구성되어야 하기 때문에 **cache overhead **가 발생할 수 있기 때문에 필요하다.
+
+* **Non-uniform memory access (NUMA)** 특성을 갖는 architecture에서 processor 마다 자신이 fast access가 가능한 memory의 process를 실행하도록 하기 위해 필요하다. 아래 그림을 참고하하면 되는데, memory에 load 되는 것이 process이기 때문에 더 빠르게 접근할 수 있는 process에 processor affinity를 맞추는 개념이다.
+
+  <img src="https://user-images.githubusercontent.com/35518072/39107824-c49f0c96-46ff-11e8-8fb9-f907bfc8e466.PNG" height="300px">
+
+* 하지만 문제가 있을 수 있는데, process가 들어왔을 때 processor affinity가 적용된 processor에게 가게 되는데, 그 processor에 기다리는 process가 많을 경우, **<u>load balancing 이 안 맞을 수 있다.</u>**
+
+#### 형식
+
+* **Soft affinity** : 가급적 동일 processor에서 실행되도록 하는 것인데, load balancing이 너무 안 좋을 경우 다른 processor에서도 실행 가능하게 하는 것이다.
+* **Hard affinity** : 엄격하게 동일 processor 에서만 실행하는 것으로, 무조건 전담 processor에서만 실행한다.
+
+
+
+### Load Balancing
+
+Multi-processor system에서 모든 processor가 fully 활용되도록 workload를 분배하는 것이 목적이다. 예를 들어, 1개의 common ready queue를 두는 방법이 있다. 이 방법은 process가 쉬고 있는 CPU를 할당받기 때문에 바람직하다. 하지만, 현대의 대부분의 OS가 여러개의 queue를 두기 때문에, queue의 길이에 따라서 쉬는 CPU를 할당할 것인지에 대한 고려사항이 있으므로 load balancing이 필요하다.
+
+#### Load balancing의 2가지 형식
+
+* **Push migration (system 관점)** : 각 processor의 load를 system이 주기적으로 check하고, 불균형(imbalance)이 발생하면 process를 옮기는 것이다.
+* **Pull migration (processor 관점)** : Idle(쉬고 있는) processor가 스스로 busy processor의 waiting task를 가져와 실행하는 방법이다.
+
+
+
+###Load balancing vs Processor affinity
+
+* <u>극단적인 load balancing 추구</u> → affinity가 무시되어서, 단위 processor당 처리 시간이 길어진다!
+* <u>극단적인 affinity 추구</u> → process의 전담 processor에 많은 process가 wait 하고 있을 경우 waiting time이 너무 길어진다.
+* 위의 2가지 문제점 때문에 절충이 필요한데, 엄격한 processor affinity를 적용하거나 processor affinity를 적용하면서 waiting process가 너무 많아질 경우 load balancing을 활용하는 방법이 있다.
+
+
+
+### Memory stall
+
+Multicore processor는 1개의 chip에 여러개의 processor core를 두는 것으로, 일반 multi-processor보다 chip간의 communication이 적기 때문에 빠르고, less power(전력 소모가 적음)의 장점이 있다.
+
+위 개념은 이미 알았던 내용이고, 이제 **memory stall** 이라는 것이 있는데 **processor가 memory에 접근할 때 data가 사용 가능할 때까지 소모되는 시간** 을 말한다. 예를 들어 cache에 data가 없으면 memory에 access하는 cache missing과 같은 것이 있다.
+
+→ 이걸 개선하기 위해서 각 core 당 여러개(2개)의 **hardware thread** 를 가지는 형태를 생각하는데, 한 thread가 memory를 wait하는 동안, core는 다른 thread로 전환하여 작업을 수행하는 것을 말한다. 
+
+> 예를 들어, *Ultra SPARC T1 CPU*에서 chip당 8개의 core를 가지며, core당 4개의 hardware thread를 가져서 32개의 logical processor처럼 동작하게 하는 것이 있다. (하지만 실제로 이렇지는 않음)
+
+
+
+## 5.6 Real-Time CPU Scheduling
+
+### 용어
+
+* Soft real time system : 가능한 빠른 응답을 요구하는 것으로 시간제약에 유연함이 있다. (계산기)
+* Hard real time system : Deadline 이전에 service 되는 것을 보장해야 한다. (자동차, 항공기, 내비)
+
+→ 그렇다면 어떻게 빠르게 만들 것인가? 바로 절차에 의한 시간인 latency를 줄이는 것이다.
+
+* Event latency : event가 발생한 시점부터 service가 이루어질 때까지의 시간
+
+* Latency requirement : deadline 조건을 얼마나 주는 것이냐로 응용에 따라 다르다.
+
+  > antilock brake system은 3~5 milliseconds 안에 응답해야 하지만 airliner의 rader를 controlling하는 embeded system은 몇 초까지는 괜찮다.
+
+
+
+### Real time system의 성능에 영향을 주는 2가지 Latency
+
+* **Interrupt latency (= interrupt handling time)** : kernel data를 update 할 때, process의 동시접근을 막기 위해서 interrupt를 disable 시키는데, 이 시간을 최소화 시켜야 한다.
+* **Dispatch latency (= context switching time + 부수절차)** : resource preemption, 즉 process로 하여금 preemption을 하게 하면 process가 resource를 다 쓸 때까지 기다리지 않아도 되기 때문에 context switching이 빨라진다.
+
+→ Real time system의 scheduler는 preemptive, priority based scheduling을 한다고 할 수 있다. 예를 들어, process는 그보다 high priority의 process가 CPU를 원하면 바로 preemptive 된다. 물론, 이렇게 간단하게 되는 것은 아니고 실제로 계산해주어야 한다.
