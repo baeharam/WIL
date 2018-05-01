@@ -1,4 +1,4 @@
-#Strongly Connected Component(SCC)
+# Strongly Connected Component(SCC)
 
 ## 정의
 
