@@ -305,13 +305,13 @@ Multi-processor system에서 process가 동일 procesor에서 실행되도록 �
 
 #### 필요성
 
-* Cache는 register 급의 속도로 memory의 일부분을 사용하는 것인데, 만약 다른 CPU를 사용하게 될 경우 cache가 재구성되어야 하기 때문에 **cache overhead **가 발생할 수 있기 때문에 필요하다.
+* Cache는 register 급의 속도로 memory의 일부분을 사용하는 것인데, 만약 다른 CPU를 사용하게 될 경우 cache가 재구성되어야 하기 때문에 **cache overhead **가 발생할 수 있다.
 
 * **Non-uniform memory access (NUMA)** 특성을 갖는 architecture에서 processor 마다 자신이 fast access가 가능한 memory의 process를 실행하도록 하기 위해 필요하다. 아래 그림을 참고하하면 되는데, memory에 load 되는 것이 process이기 때문에 더 빠르게 접근할 수 있는 process에 processor affinity를 맞추는 개념이다.
 
   <img src="https://user-images.githubusercontent.com/35518072/39107824-c49f0c96-46ff-11e8-8fb9-f907bfc8e466.PNG" height="300px">
 
-* 하지만 문제가 있을 수 있는데, process가 들어왔을 때 processor affinity가 적용된 processor에게 가게 되는데, 그 processor에 기다리는 process가 많을 경우, **<u>load balancing 이 안 맞을 수 있다.</u>**
+* 하지만 문제가 있을 수 있음 → process가 들어왔을 때 processor affinity가 적용된 processor에게 가게 되는데, 그 processor에 기다리는 process가 많을 경우 **<u>load balancing 이 안 맞을 수 있다.</u>**
 
 #### 형식
 
@@ -322,7 +322,7 @@ Multi-processor system에서 process가 동일 procesor에서 실행되도록 �
 
 ### Load Balancing
 
-Multi-processor system에서 모든 processor가 fully 활용되도록 workload를 분배하는 것이 목적이다. 예를 들어, 1개의 common ready queue를 두는 방법이 있다. 이 방법은 process가 쉬고 있는 CPU를 할당받기 때문에 바람직하다. 하지만, 현대의 대부분의 OS가 여러개의 queue를 두기 때문에, queue의 길이에 따라서 쉬는 CPU를 할당할 것인지에 대한 고려사항이 있으므로 load balancing이 필요하다.
+Multi-processor system에서 모든 processor가 fully 활용되도록 workload를 분배하는 것이 목적이다. 예를 들어, 1개의 common ready queue를 두는 방법이 있다. 이 방법은 process가 쉬고 있는 CPU를 할당받기 때문에 load balancing이 알아서 된다. 하지만, 현대의 대부분의 OS가 여러개의 queue를 두기 때문에, queue의 길이에 따라서 쉬는 CPU를 할당할 것인지에 대한 고려사항이 있으므로 load balancing이 필요하다.
 
 #### Load balancing의 2가지 형식
 
@@ -335,7 +335,7 @@ Multi-processor system에서 모든 processor가 fully 활용되도록 workload�
 
 * <u>극단적인 load balancing 추구</u> → affinity가 무시되어서, 단위 processor당 처리 시간이 길어진다!
 * <u>극단적인 affinity 추구</u> → process의 전담 processor에 많은 process가 wait 하고 있을 경우 waiting time이 너무 길어진다.
-* 위의 2가지 문제점 때문에 절충이 필요한데, 엄격한 processor affinity를 적용하거나 processor affinity를 적용하면서 waiting process가 너무 많아질 경우 load balancing을 활용하는 방법이 있다.
+* 위의 2가지 문제점 때문에 절충이 필요한데, (1) 엄격한 processor affinity를 적용하거나 (2) processor affinity를 적용하면서 waiting process가 너무 많아질 경우 load balancing을 활용하는 방법이 있다.
 
 
 
@@ -343,7 +343,7 @@ Multi-processor system에서 모든 processor가 fully 활용되도록 workload�
 
 Multicore processor는 1개의 chip에 여러개의 processor core를 두는 것으로, 일반 multi-processor보다 chip간의 communication이 적기 때문에 빠르고, less power(전력 소모가 적음)의 장점이 있다.
 
-위 개념은 이미 알았던 내용이고, 이제 **memory stall** 이라는 것이 있는데 **processor가 memory에 접근할 때 data가 사용 가능할 때까지 소모되는 시간** 을 말한다. 예를 들어 cache에 data가 없으면 memory에 access하는 cache missing과 같은 것이 있다.
+위 개념은 이미 알았던 내용이고, 이제 **memory stall** 이라는 것을 알아야 하는데 **processor가 memory에 접근할 때 data가 사용 가능할 때까지 소모되는 시간** 을 말한다. 예를 들어 cache에 data가 없으면 memory에 access하는 <u>cache missing</u> 과 같은 것이 있다.
 
 → 이걸 개선하기 위해서 각 core 당 여러개(2개)의 **hardware thread** 를 가지는 형태를 생각하는데, 한 thread가 memory를 wait하는 동안, core는 다른 thread로 전환하여 작업을 수행하는 것을 말한다. 
 
@@ -355,22 +355,139 @@ Multicore processor는 1개의 chip에 여러개의 processor core를 두는 것
 
 ### 용어
 
-* Soft real time system : 가능한 빠른 응답을 요구하는 것으로 시간제약에 유연함이 있다. (계산기)
-* Hard real time system : Deadline 이전에 service 되는 것을 보장해야 한다. (자동차, 항공기, 내비)
+* **Soft real time system** : 가능한 빠른 응답을 요구하는 것으로 시간제약에 유연함이 있다. (계산기)
+* **Hard real time system** : Deadline 이전에 service 되는 것을 보장해야 한다. (자동차, 항공기, 내비)
 
-→ 그렇다면 어떻게 빠르게 만들 것인가? 바로 절차에 의한 시간인 latency를 줄이는 것이다.
+→ <u>그렇다면 어떻게 빠르게 만들 것인가?</u> 바로 절차에 의한 시간인 latency를 줄이는 것이다.
 
-* Event latency : event가 발생한 시점부터 service가 이루어질 때까지의 시간
+* **Event latency** : event가 발생한 시점부터 service가 이루어질 때까지의 시간
 
-* Latency requirement : deadline 조건을 얼마나 주는 것이냐로 응용에 따라 다르다.
+* **Latency requirement** : deadline 조건을 얼마나 주는 것이냐로 응용에 따라 다르다.
 
-  > antilock brake system은 3~5 milliseconds 안에 응답해야 하지만 airliner의 rader를 controlling하는 embeded system은 몇 초까지는 괜찮다.
+  > antilock brake system은 3~5 milliseconds 안에 응답해야 하지만, airliner의 rader를 controlling하는 embeded system은 몇 초까지는 괜찮다.
 
 
 
-### Real time system의 성능에 영향을 주는 2가지 Latency
+### Real time system의 성능에 영향을 주는 2가지 Latency와 해결법
 
 * **Interrupt latency (= interrupt handling time)** : kernel data를 update 할 때, process의 동시접근을 막기 위해서 interrupt를 disable 시키는데, 이 시간을 최소화 시켜야 한다.
-* **Dispatch latency (= context switching time + 부수절차)** : resource preemption, 즉 process로 하여금 preemption을 하게 하면 process가 resource를 다 쓸 때까지 기다리지 않아도 되기 때문에 context switching이 빨라진다.
+
+  > 정의 : the period of time from the arrival of an interrupt at the CPU to the start of the routine that services the interrupt
+
+* **Dispatch latency (= context switching time + 부수절차)** : resource preemption, 즉 kenrel에 있는 어떤process라도 preemption을 시키는 것으로 process가 resource를 다 쓸 때까지 기다리지 않아도 되기 때문에 context switching이 빨라진다.
 
 → Real time system의 scheduler는 preemptive, priority based scheduling을 한다고 할 수 있다. 예를 들어, process는 그보다 high priority의 process가 CPU를 원하면 바로 preemptive 된다. 물론, 이렇게 간단하게 되는 것은 아니고 실제로 계산해주어야 한다.
+
+### Hard real time system(엄격한 시간 제한)
+
+* deadline 내에 수행을 보장해야 한다.
+* **Admission-control algorithm** : 정시 완료를 보장할 수 있는가를 판단해서 보장할 수 있을 때만 admit하고 보장할 수 없으면 reject하는 것이다.
+* process에 대한 실행 시간, 실행 주기, deadline을 알아야 한다.
+
+### (1) Rate-monotonic Scheduling algorithm
+
+* <u>periodic tasks</u> using <u>static priority policy</u> with <u>preemption</u>
+* 각 작업은 실행 주기 값에 반비례하여 priority가 결정된다.
+  * 실행주기가 짧은 process → high priority
+  * 실행주기가 긴 process  → low priority
+
+> p1 : 실행 시간 (20), 주기/deadline(50) → CPU utilization (20/50 = 0.40 = 40%)  
+> p2 : 실행 시간 (35), 주기/deadline(100) → CPU utilization (35/100 = 0.35 = 35%)
+>
+> → 총합 = 93.75% < 100%, 수행 가능한 것으로 보임
+
+1. **일반적인 priority를 적용한 경우, p2>p1이라고 하자.**
+
+p2가 먼저 35만큼 실행되고 p1은 20만큼 실행되지만 p1의 deadline은 50이다 하지만 55 때 수행이 완료되므로 deadline인 50에 끝나지 못해서 scheduling에 실패한 것이다. 이것이 의미하는 바는, <u>CPU utilization이 100% 이하이더라도 priority에 따라 scheduling이 실패할 수도 있다는 것이다.</u> 
+
+<img src="https://user-images.githubusercontent.com/35518072/39293785-c8550b20-4974-11e8-962a-605d04a95edf.PNG" height="150px">
+
+
+
+2. **Rate-monotonic scheduling을 적용하면, 실행주기가 짧은 것이 high priority이므로 p1>p2이다.**
+
+p1이 먼저 20만큼 실행되고 p2가 35이지만 30만큼 실행되면 다시 p1의 실행주기가 돌아와서 50에 p1을 다시 20만큼 실행하면 70이 되고 p2의 남은 실행시간인 5만큼 실행한다. p1은 2번이 실행될 동안의 실행주기인 100안에 2번 실행되었고 p2도 실행주기인 100 안에 1번 실행되었으므로 scheduling이 잘 되었다고 볼 수 있다. 그 이후도 똑같이 진행된다.
+
+<img src="https://user-images.githubusercontent.com/35518072/39293873-101a71a2-4975-11e8-8804-b19b2ee138d9.PNG" height="150px">
+
+
+
+* 위 예제를 보면 real-monotonic scheduling을 적용할 경우 모든 경우에 성공할 것 같지만, 다음의 경우를 보면 CPU utilization이 100% 이하라고 해도 수행이 보장된다고 볼 수 없다.
+
+> p1 : 실행 시간 (25), 주기/deadline(50) → CPU utilization (25/50 = 0.50 = 50%)  
+> p2 : 실행 시간 (35), 주기/deadline(80) → CPU utilization (35/80 = 0.4375 = 43.75%)
+>
+> → 총합 = 93.75% < 100%, 수행 가능한 것으로 보임
+
+3. **Rate-monotonic scheduling은 모든 경우에 수행이 보장되는 것이 아니다.**
+
+real-monotonic scheduling을 적용해보면 p1이 실행주기가 더 짧으므로 p1>p2이다. p1이 25만큼 실행되고 실행주기인 50까지 p2가 25만큼 실행하여 15가 남는다. p1이 50부터 25만큼 실행되서 75가 되고 p2가 남은 15를 실행하지만 85가 되므로, p2의 deadline인 80을 넘게 된다. → scheduling이 실패하는 것을 알 수 있다.
+
+<img src="https://user-images.githubusercontent.com/35518072/39293975-6781047e-4975-11e8-868f-42d7620d2323.PNG" height="150px">
+
+
+
+그러면 이 scheduling이 성공하기 위한 최대 CPU utilization은 어느 정도 될까? Worst case의 경우 CPU utilization은 다음과 같은 수식으로 표현된다.
+$$
+N \times (2^{\frac{1}{N}}-1)
+$$
+$N=2$ 일 때, 82.8%가 CPU utilization의 최대라고 한다. 따라서 위에서 93.75%가 나와도 실패하며, 이것보다 작아야 하는 것이다.
+
+
+
+### (2) Earliest-Deadline-First (EDF) Scheduling
+
+* 실행시간에 priority가 결정되는 **dynamic priority** 의 특징이 있다. (rate-monotonic은 static priority)
+* Deadline이 더 가까운 process가 high priority를 갖으며, dynamic이기 때문에 새로운 process가 들어올 때마다 deadline을 비교해서 preemptive 여부를 결정한다.
+* Preemptive scheduling은 새로운 proces를 받았을 때, priority를 비교해서 scheduling 하는 것이고 Non-preemptive scheduling은 현재 실행중인 process가 할당받은 CPU를 다 썼을 때 scheduling 하는 것이다.
+* 이론적으로는 optimal하기 때문에, 100% CPU utilization으로 생각할 수 있지만 실제로는 **context switching time** 과 **interrupt handling time** 에 의한 **overhead** 가 있기 때문에 불가능하다.
+
+> Rate-monotonic Scheduling의 마지막 예제를 다시 한번 생각해보자. EDF Scheduling에서는 가능할까?
+>
+> p1 : 실행 시간 (25), 주기/deadline (50)  
+> p2 : 실행 시간 (35), 주기/deadline (80)
+
+<img src="https://user-images.githubusercontent.com/35518072/39303120-fb53ca6e-498f-11e8-98fe-525ac06eb06d.PNG" height="150px">
+
+1. p1의 deadline이 더 가깝기 때문에 25만큼 p1을 실행하고 p2를 실행하는데 50일 때 p1의 deadline인 100보다 p2의 deadline인 80이 더 작기 때문에 preemptive 하지 않는다.
+2. p2를 실행시간 35만큼 다 실행하고 p1을 다시 25만큼 실행하는데 중간에 80에서 p1의 deadline인 100이 p2의 deadline인 160보다 작기 때문에 preemptive 하지 않는다.
+3. 그 다음 100에서 p1의 deadline인 150이 p2의 deadline인 160보다 작기 대문에 p2를 100까지 15만큼 실행하다가 p1에게 preemptive 되서 p1을 25만큼 실행한다. 
+4. 마지막으로 125에서 p1의 실행이 끝나고 p2의 남은 시간인 20만큼 실행하고 나머지 시간은 idle하게 된다.
+
+
+
+## 5.8 Algorithm Evaluation
+
+여러가지 Scheduling algorithm이 존재하는데, 무슨 기준(Criteria)으로 평가할 것인가? 예를 들어 2가지 기준으로 평가할 수 있다.
+
+1. Maximum response time이 지정된 조건하에서 CPU utilization이 극대화되도록! (CPU utilization이 극대화 되면서 maximum response time이 굉장히 minimal 한 경우를 말함)
+2. Turn around time이 총 실행 시간에 비례하도록!
+
+### Deterministic Modeling
+
+* Analytic evaluation으로 사전에 지정한 workload에 대하여 각 algorithm을 적용하여 분석한다.
+* 장점 : Simple / Fast
+* 단점 : 주어진 data에 대해서만 결과의 의미를 갖기 때문에 data의 신뢰성에 따라서 evaluation의 유효성이 결정된다.
+
+### Queueing Modeling
+
+* CPU burst, I/O burst의 분포를 근사치(approximation)로 추정한다.
+* 각 queue에 대해서 arrival rate, service rate이 알려져 있을 때, 이것으로부터 다음을 계산한다.
+  * System resource utilization
+  * Average queue length
+  * Average waiting time
+
+### Simulation
+
+* CPU burst time, arrival time, departure time을 확률 분포에 따라 생성해서 적용하는 방법이다.
+* 신뢰도 vs Cost의 구도가 만들어지는데, data의 신뢰도를 높이기 위해선 cost가 올라가기 때문이다.
+
+### Implementation
+
+> The only completely accurate way to evaluate a scheduling algorithm is to code it up, put it in the operating system, and see how it works.
+
+즉, 가장 정확한 평가방법은 scheduling algorithm을 구현해서 OS에 집어넣은 후 관찰하는 것인데 다음과 같은 어려움이 따른다.
+
+* High cost (알고리즘의 coding과 OS로 하여금 support하게 modify하는 것)
+* OS의 변화가 사용자 관점과 차이가 있을 수 있다. (즉, user가 그 변화에 관심이 없을 수도 있고, 단지 그들이 사용하고 있는 process들을 실행시키고 결과를 보고 싶을 뿐인 것)
+* User가 변화에 적응하여 priority를 임의로 설정할 수 있다. 하지만 이것은 scheduling의 목적에 위반된 것이므로 test 환경과 실제 상황이 다를 수 있다는 것을 보여준다.
