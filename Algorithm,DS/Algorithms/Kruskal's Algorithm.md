@@ -5,9 +5,9 @@
 이런 조건을 만족하는 Spanning tree에서 각 간선의 총합을 최소로 하는 Spanning tree를 MST라고 한다. MST를 찾는 크루스칼 알고리즘의 과정은 다음과 같다.
 
 1. 그래프의 각 vertex가 각각 하나의 tree가 되도록 하는 disjoint-set을 만든다.
-2. 모든 edge를 원소로 갖는 집합 S를 만든다.
+2. 모든 edge를 원소로 갖는 집합 S를 만들어서 non-decreasing order로 정렬한다.
 3. S가 비어있지 않는 동안.
-   1. 가장 작은 weight의 edge를 S에서 뺀다. (=weight 기준 오름차순으로 정렬한다.)
+   1. 가장 작은 weight의 edge를 S에서 뺀다.
    2. 그 edge를 연결하는 각 vertex가 같은 tree에 존재하지 않는지 확인한다. (cycle 체크)
    3. Cycle을 생성하지 않는다면 Find 함수를 사용하여 각 vertex가 속한 tree의 root vertex를 받아온 후 Union 함수로 연결한다.
    4. Cycle을 생성한다면 그 edge를 버린다.
@@ -29,7 +29,7 @@
 
 # 시간복잡도
 
-1. Disjoint-Set 자료구조를 이용해서 Make-Set 함수를 쓰면 각 vertex를 개별적인 tree로 취급하는 것으로 $O(V)$의 시간이 걸린다.
-2. Edge의 weight을 기준으로 오름차순 정렬하므로 제일 빠른 알고리즘인 Merge sort, Heap sort를 쓴다고 해도 $O(E log E)$의 시간이 걸린다.
-3. Find-Set 함수를 쓰는데 $O(logV)$의 시간이 걸리고 모든 edge를 연결하는 각각의 vertex에 대해 써야 하므로 $O(2VlogV)=O(VlogV)$의 시간이 걸린다.
-4. MST가 완성되면 $E>=V-1$ 의 edge 개수가 있기 때문에 $O(ElogE)$의 시간복잡도를 가진다고 말할 수 있다.
+1. Disjoint-Set 자료구조를 이용해서 Make-Set 함수를 쓰면 각 vertex를 개별적인 tree로 취급하는 것으로 $O(|V|)$의 시간이 걸린다.
+2. Edge의 weight을 기준으로 오름차순 정렬하므로 제일 빠른 알고리즘인 Merge sort, Heap sort를 쓴다고 해도 $O(|E|log|E|)$의 시간이 걸린다.
+3. Find-Set 함수를 쓰는데 $O(log|V|)$의 시간이 걸리고 모든 edge를 연결하는 각각의 vertex에 대해 써야 하므로 $O(2|V|log|V|)=O(|V|log|V|)$의 시간이 걸린다.
+4. Spanning tree의 최소 edge 개수가 $|V|-1$개이고, 최대 edge 개수가 거의 $|V|^2$이기 때문에 $O(|E|log|E|)=O(|E|log|V|^2)=O(2|E|log|V|)=O(|E|log|V|)$로 나타낼 수 있다. 
