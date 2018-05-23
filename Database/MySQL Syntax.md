@@ -166,3 +166,11 @@ COMMIT;
 3. `INITIALLY DEFERRED`  : transaction 단위로 constraint를 체크한다.
 
 다라서 위에서 발생한 문제는 `INITIALLY DEFERRED`로 해결할 수 있고 `NOT DEFERABLE`과 `INITIALLY IMMEDIATE`의 차이점이 헷갈릴 수 있는데 [다음 설명](https://stackoverflow.com/questions/5300307/not-deferrable-versus-deferrable-initially-immediate/44723053#44723053)이 명쾌하니 참고하도록 하자.
+
+* [**CAST**](https://www.w3schools.com/sql/func_mysql_cast.asp)
+
+```mysql
+SELECT * FROM movie_list ORDER BY CAST(cumulative_audience AS UNSIGNED) DESC
+```
+
+말 그대로 캐스팅하는 쿼리문이다. DB 파이널 프로젝트를 하면서 `cumulative_audience` (누적관객) 기준으로 내림차순 정렬을 시도하려고 했으나 처음에 문자열로 컴마를 찍어서 넣는 바람에 데이터를 전부 바꿔야 했다. 그래서 방법이 없나 생각을 해보다가 `CAST`를 사용하면 숫자로 변환할 수 있다고 해서 내림차순 정렬을 할 수 있었다.
