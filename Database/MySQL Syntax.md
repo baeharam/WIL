@@ -133,7 +133,7 @@ SELECT * FROM information_schema.table_constraints WHERE table_name="테이블�
 
 이런식으로 처리를 해주지 않는다면 Referential Integrity를 위반하기 때문에 반드시 이런 경우를 고려해주어야 한다.
 
-* **DEFERABLE**
+* **DEFERABLE(MySQL 지원 안함)**
 
 `DEFERABLE`은 해당 쿼리의 적용에 대한 constraints를 검사하는 옵션이며 다음과 같은 경우에 사용된다.
 
@@ -174,3 +174,119 @@ SELECT * FROM movie_list ORDER BY CAST(cumulative_audience AS UNSIGNED) DESC
 ```
 
 말 그대로 캐스팅하는 쿼리문이다. DB 파이널 프로젝트를 하면서 `cumulative_audience` (누적관객) 기준으로 내림차순 정렬을 시도하려고 했으나 처음에 문자열로 컴마를 찍어서 넣는 바람에 데이터를 전부 바꿔야 했다. 그래서 방법이 없나 생각을 해보다가 `CAST`를 사용하면 숫자로 변환할 수 있다고 해서 내림차순 정렬을 할 수 있었다.
+
+* **[MySQL 5.7.21 비밀번호 변경 방법](https://dev.mysql.com/doc/refman/5.7/en/resetting-permissions.html)**
+
+```mysql
+USE mysql
+UPDATE mysql.user SET authentication_string=PASSWORD("NewPassword"), password_expired="N"
+WHERE User="root" AND Host="localhost";
+FLUSH PRIVILEGES;
+```
+
+DB 파이널 프로젝트 때문에 비밀번호를 통일하다 보니 원래 비밀번호에서 바뀌어서 다시 원래 비밀번호로 복구하려다 보니 찾게 되었고 5.7.21 버전의 경우 다음 쿼리로 리셋시킬 수 있다.
+
+* **[Transaction의 특성](https://dev.mysql.com/doc/refman/8.0/en/commit.html)**
+
+Transaction을 사용할 때는 3가지 조건으로 쿼리를 날릴 수 있다.
+
+```mysql
+START TRANSACTION 
+WITH CONSISTENT SNAPSHOT
+READ WRITE
+READ ONLY
+```
+
+트랜잭션을 `READ ONLY`로 하는 경우, 트랜잭션 안에서 되는 쿼리는 SELECT 쿼리 밖에 없다.
+
+* **[Isolation level](https://dev.mysql.com/doc/refman/5.7/en/innodb-transaction-isolation-levels.html#isolevel_serializable) 테스트 하기**
+
+트랜잭션은 병렬로 수행될 때 isolation level에 따라서 보여지는 정보가 다르다는 것은 이전에 배웠던 내용이다. 지금은 isolation level을 테스트하는 방법에 대해서 알아보자. 
+
+먼저, 병렬수행을 하기 위해 MySQL 모니터 2개를 킨다. MySQL 5.7.12 기준에선 isolation level이 default 값인 REPEATABLE READ로 설정되어 있다. 제일 개방적인 READ UNCOMMITTED 부터 테스트하기 위해서 다음과 같이 트랜잭션의 isolation level을 다시 설정한다.
+
+```mysql
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+```
+
+두개의 MySQL 모니터를 모니터1, 모니터2라고 하고 위 쿼리를 실행한 모니터를 모니터2라고 하자. 이 경우에 둘 다 트랜잭션을 수행하면서 모니터2로 ISOLATION LEVEL을 바꿔가며 테스트 하면 어떤 건지 확실히 와닿을 것이다.
+
+* **[foreign key 에러로그 체크하기](https://stackoverflow.com/a/15535110/9437175)**
+
+Constraint를 연습하면서 foreign key를 테이블에 추가하려는 도중에 에러가 생겨서 왜 생기는지 구글링 해봤더니 현재 InnoDB의 상태를 보여주는 쿼리가 있어서 적어본다. 여기서 LATEST FOREIGN KEY ERROR 부분을 보면 이유가 나온다.
+
+```mysql
+SHOW ENGINE INNODB STATUS;
+```
+
+* **[테이블 삭제 오류](http://blog.funexlab.com/mysql-%EC%82%AD%EC%A0%9C-%EC%97%90%EB%9F%AC-cannot-delete-or-update-a-parent-row-a-foreign-key-constraint-fails/)**
+
+foreign key를 가진 테이블을 삭제했는데 그 foreign key에 해당하는 primary key를 가지는 테이블이 안 지워지는 에러가 발생했다.... 어떻게 해야할지 몰라 찾아봤더니 foreign key를 체크하는 속성을 잠시 disable 시키면 되었다.
+
+```mysql
+SET foreign_key_checks=0;
+```
+
+라고 생각을 하던 찰나에 여전히 데이터베이스에 foreign key가 존재하여 존재하지 않는 column을 참조 하고 있다는 에러가 발생했다. 그래서 데이터베이스의 foreign key를 조회하기 위한 쿼리를 검색해 보았다.
+
+```mysql
+SELECT * FROM information_schema.table_constraints WHERE constraint_schema='handong'
+```
+
+handong은 데이터베이스 이름이고 해당 데이터베이스에 있는 모든 constraints를 보여주기 때문에 foreign key 뿐만 아니라 primary key도 보여준다. 제발 foreign key 만들 때 조심하자!!
+
+* **Materialized view를 trigger로 구현하기**
+
+MySQL에서는 materialized view를 지원하지 않지만 table을 만들고 trigger를 설정하면 view의 refresh 효과를 추가할 수 있기 때문에 mimic(흉내) 할 수는 있다. 이걸 시연해보느라 애먹었다ㅠ
+
+```mysql
+CREATE TABLE materialized_view_movies
+(
+	title VARCHAR(30), year INT(2), length INT(2)
+);
+```
+
+먼저 `movies`라는 table이 있는데 title,year,length,genre,studioName 이라는 attributes가 있다. 지금 만들 materialized view는 title,year,length만 뽑아내서 `movies`에 "haram"이라는 title의 영화가 추가됬을 때 materialized view에도 추가를 시키는 기능을 가진다. 따라서 먼저 해당되는 table인 `materialized_view_movies`를 만들어주었다.
+
+이제 기존의 값들을 추가해주자.
+
+```mysql
+INSERT INTO materialized_view_movies SELECT title,year,length FROM movies;
+```
+
+기존의 movies 와 똑같은 값을 가지며 trigger만 추가해주면 끝난다.
+
+```mysql
+DELIMITER $$
+CREATE TRIGGER movies_add_trigger
+AFTER INSERT ON movies
+FOR EACH ROW BEGIN
+IF NEW.title="haram" THEN
+INSERT INTO materialized_view_movies (title,year,length) VALUES(NEW.title, NEW.year, NEW.length);
+END IF;
+END$$
+DELIMITER ;
+```
+
+실제로 시연해보면 `movies` 에 값이 추가되었을 때 title이 "haram"이라면 `materialized_view_movies`에도 해당 title, year, length가 추가되는 것을 알 수 있다.
+
+* **[INDEX 확인하기](https://stackoverflow.com/a/5213364/9437175)**
+
+INDEX에 대해서 복습하면서 primary key는 어떤 데이터베이스 엔진이든지 INDEX로 자동 설정된다는 것을 알았다. 그걸 보기 위해서 INDEX를 어떻게 확인할 수 있는지 알아본 것이 다음과 같다.
+
+```mysql
+SHOW INDEX FROM movies;
+```
+
+`movies`  테이블에 있는 INDEX를 전부 보여주는 쿼리이다. 데이터베이스 기준으로 INDEX를 전부 보여줄 수도 있다.
+
+```MYSQL
+SELECT DISTINCT TABLE_NAME,INDEX_NAME INFORMATION_SCHEMA.STATISTICS WHERE TABLE_SCHEMA='handong';
+```
+
+handong이라는 DB에 설정된 모든 INDEX를 보여준다.
+
+
+
+
+
