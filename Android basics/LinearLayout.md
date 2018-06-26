@@ -46,3 +46,8 @@ LinearLayout은 안드로이드에서 제공하는 기본 Layout 클래스 중�
 * `android:layout_gravity` : 자신이 속한 부모 Layout 내 자신의 정렬 위치 값을 지정한다.
 * `android:gravity` : 뷰의 내용이 정렬되는 위치 값을 지정한다.
 
+## 출처
+
+[안드로이드 공식문서](https://developer.android.com/reference/android/widget/LinearLayout)
+
+[개발자를 위한 레시피](http://recipes4dev.tistory.com/66?category=658689)
