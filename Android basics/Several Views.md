@@ -60,3 +60,7 @@ checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
 * check() : 매개변수로 체크하고자 하는 RadioButton의 id값을 주면 체크된다.
 * clearCheck() : RadioGroup의 RadioButoon 체크 상태를 해제한다.
 * getCheckedRadioButtonId() : 체크된 RadioButton의 id 값을 획득한다.
+
+## 출처
+
+* 깡샘의 안드로이드 프로그래밍
