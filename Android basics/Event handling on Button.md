@@ -4,7 +4,7 @@
 
 먼저 해당 버튼의 id를 `btn`이라고 하자. 총 4가지 방법이 있다.
 
-#1. OnClickListener를 따로 만들어 구현
+# 1. OnClickListener를 따로 만들어 구현
 
 ```java
 public class MainActivity extends AppCompatActivity{
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity{
 }
 ```
 
-#3. OnClickListner를 implements하여 구현
+# 3. OnClickListner를 implements하여 구현
 
 ```java
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
