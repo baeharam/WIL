@@ -20,7 +20,7 @@ FrameLayout은 레이아웃에 포함된 뷰들을 같은 영역에 겹쳐서 �
 
 여기서 중요한 것은 TabWidget과 FrameLayout의 id값을 반드시 지정해야 한다는 것인데, 그것도 TabWidget은 `@android:id/tabs`로 FrameLayout은 `@android:id/tabcontent`로 지정해주어야 한다.
 
-#TabHost를 위한 코드
+# TabHost를 위한 코드
 
 탭의 버튼과 버튼이 눌렸을 때의 본문을 표현하기 위해서 XML 뿐만 아니라 JAVA로도 작업을 해주어야 한다. 이 때 각 버튼을 indicator라고 하며 indicator에 따른 본문을 Tab content라고 한다. 또한, Indicator에 해당하는 Tab content를 하나로 묶어서 TabSpec이라고 한다. 이제 TabSpec을 통해서 버튼과 버튼에 해당하는 본문을 보여주는 기능을 추가해보자.
 
