@@ -100,5 +100,21 @@ tar Cxvf newdir my.tar # C(디렉터리 설정해서 압축해제) x(묶음풀�
 tar xvfJ my.tar.xz # x(묶음풀고) v(과정보고) f(이름지정) J(다시 묶고 압축)
 ```
 
+# 파일 찾기
+
+* 옵션 : -name(이름) -user(소유자) -perm(허가권) -size(크기)...
+* action : -print(기본 값), -exec(외부 명령 실행)
+
+```shell
+find /etc -name "*.conf" # /etc 디렉터리 하위에 확장명이 conf인 파일검색
+find /home -user haram # /home 디렉터리 하위에 소유자가 haram인 파일 검색
+find ~ -perm 644 # 현재 사용자의 홈 디렉터리 하위에 허가권이 644인 파일 검색
+find /usr/bin -size +10k -size -100k # /usr/bin 디렉터리 하위에 10KB~100KB인 파일 검색
+find ~ -size 0k -exec ls -l {} \; # 홈 디렉터리에서 크기가 0KB인 파일 목록 출력
+# -exec 이전 부분이 {}안에 들어가서 실행되는 것이다. -exec와 \;는 외부명령어의 시작과 끝
+```
+
+이외에도 which/whereis/locate 등이 있다.
+
 
 
