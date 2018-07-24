@@ -39,10 +39,11 @@ A는 B에게 TCP request를 보내고 B는 받아들이는 의미로 accept를 �
 
 3-way handshake는 특별한 비트를 이용해서 구현하는데 헤더에 있는 SYN이라는 비트를 사용한다. SYN은 synchronize라는 것으로 동기화시킨다는 의미이다. 
 
-* SYN 비트가 1일 경우는 TCP connection을 할 경우밖에 없고 sequence number와 같이 보낸다.
-* B는 A에게 SYN=1임을 봤기 때문에 TCP connection임을 알고 accept를 한다.
-* 이후 A에게 SYN과 sequence number, 피드백을 보낸다.
-* 3-way handshake이기 때문에 마지막으로 A가 SYN비트 0과 sequence number, 피드백을 보내고 끝이 난다.
+* 클라이언트는 랜덤으로 sequence number를 골라서 (=client_isn) 헤더의 flag 비트인 SYN을 1로 설정한 뒤에 보낸다. 이걸 SYN segment라고 한다. (SYN_SENT 상태)
+* 서버는 SYN segment를 받아서 연결을 받아들인다는 의미로 SYN=1로 설정하고 sequence number를 랜덤, ack를 client_isn+1로 설정해서 보낸다. 이걸 SYNACK segment라고 한다.
+* SYNACK segment를 받은 클라이언트는 마지막으로 서버의 sequence number인 server_isn에 1을 더하고 SYN=0으로 설정해서 마지막으로 보내고 끝이난다. (ESTABLISHED 상태)
+
+자세한 내용은 책 253페이지를 참고하도록 하자.
 
 ## Closing a TCP connection
 
@@ -51,6 +52,12 @@ A는 B에게 TCP request를 보내고 B는 받아들이는 의미로 accept를 �
 TCP connection을 종료하기 위해선 또 하나의 segment를 보내는데 이번엔 헤더의 FIN이라는 비트 값을 이용한다. 이 값을 1로 설정해서 보내면 클라이언트의 입장에서 보낼 데이터가 없다는 것을 의미하며 서버는 ACK를 보낸다. 하지만 이걸로 끝나는 것이 아니라 서버 입장에선 보낼 데이터가 있을수도 있기 때문에 서버로부터도 FIN 값을 받아야 한다. 그러면 클라이언트는 ACK를 보내서 TCP connection이 종료되는 것이다.
 
 하지만 위 그림을 보면 Timed wait이란 부분이 있어서 일정 시간이 지난 후에 종료가 되는데 그 이유가 무엇일까? 바로 마지막 ACK가 유실될 가능성을 대비한 것으로 ACK가 유실될 경우 클라이언트는 TCP connection을 끊었는데 서버에서는 ACK를 받지 못했다. 따라서 서버는 FIN을 다시 보내야 되는데 연결은 이미 끊긴 상황이 되는 것이다. 이런 이유 때문에 마지막 ACK 이후에는 어느 정도의 시간을 기다린 후에 TCP connection을 종료시킨다.
+
+추가한다, 상태 변화는 아래와 같다.
+
+* 클라이언트가 FIN=1로 설정해서 보낼 때 : FIN_WAIT_1 상태
+* 클라이언트가 서버로부터 ACK를 받고 서버의 FIN=1을 기다릴 때 : FIN_WAIT_2 상태
+* 서버의 FIN=1을 받고 ACK를 확실히 전달하기 위해서 기다리는 시간 : TIME_WAIT 상태
 
 ## Window Size
 
