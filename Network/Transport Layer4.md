@@ -97,9 +97,42 @@ TCP connection이 이루어지고 데이터를 보내려고 할 때 처음의 co
 
 <img src="https://user-images.githubusercontent.com/35518072/43122341-a1336d8e-8f5b-11e8-90b5-84f396d4634c.png">
 
-위 그래프를 보면 ssthresh라는 것이 있는데 slow start threshold로 여기서부턴 congestion이 발생할 수 있으니 조심해야 하는 것을 뜻한다. 처음엔 1, 2, 4, 8로 exponential하게 증가하지만 ssthresh가 8로 설정되어있기 때문에 여기서 12까진 linear하게 증가한다. Congestion이 발생할 수 있기 때문에 조심해서 증가시키는 것이다. 하지만 12에서 congestion이 발생해서 cwnd를 한번에 내렸다. 이 경우에는 패킷 유실로 판단할 수 있으며 패킷 유실은 2가지로 알 수 있다.
+위 그래프를 보면 **ssthresh**라는 것이 있는데 **slow start threshold**로 여기서부턴 congestion이 발생할 수 있으니 조심해야 하는 것을 뜻한다. 처음엔 1, 2, 4, 8로 exponential하게 증가하지만 ssthresh가 8로 설정되어있기 때문에 여기서 12까진 linear하게 증가한다. Congestion이 발생할 수 있기 때문에 조심해서 증가시키는 것이다. 하지만 12에서 congestion이 발생한 것을 볼 수 있는데 이 때의 상태를 **congestion avoidance**라고 하며 cwnd를 한번에 내렸다. 이 경우에는 패킷 유실로 판단할 수 있으며 패킷 유실은 2가지로 알 수 있다.
 
 * **3 duplicate ACKs**
 * **ACK를 받지 못하고 타임아웃**
 
-하지만 2가지 경우에 각각 네트워크 상황을 짐작하는 방법이 다르다. 3 duplicate의 경우는 특정 패킷에 대한 ACK가 중복되서 오는 것이기 때문에 그 패킷이 운이 좀 나쁘다고 생각할 수 있지만 타임아웃의 경우는 보낸 패킷들에 대한 ACK가 안오는 상황, 즉 3 duplicate 조차 오지 않는 상황이기 때문에 훨씬 심각한 것으로 보게 되는 것이다.
+하지만 2가지 경우에 각각 네트워크 상황을 짐작하는 방법이 다르다. 3 duplicate의 경우는 특정 패킷에 대한 ACK가 중복되서 오는 것이기 때문에 그 패킷이 운이 좀 나쁘다고 생각할 수 있지만 **타임아웃의 경우**는 보낸 패킷들에 대한 ACK가 안오는 상황, 즉 3 duplicate 조차 오지 않는 상황이기 때문에 **훨씬 심각한 것이다.**
+
+위 그래프에서 하늘색 그래프는 TCP의 초기버전인 **TCP Tahoe**로, 종류에 상관없이 패킷 유실에 대해서 slow start threshold를 cwnd의 절반으로 줄이고 **단순하게 처음부터 시작**하는 해결법을 가졌었다. 하지만 새로운 버전인 **TCP Reno**가 나오면서 타임아웃과 duplicate 패킷 유실을 구분하기 시작했고  slow start threshold를 절반으로 줄이는 것은 동일하지만 **duplicate인 경우엔 처음부터 시작하지 않고 줄어든 ssthresh부터 linear increase로 동작하게 되었다.**
+
+
+
+# TCP Throughput
+
+TCP의 throughput은 receiver가 sender로부터 단위시간당 받는 데이터의 양이며 어떤 면에선 sending rate로 볼 수도 있기 때문에 대략적으로 cwnd/RTT와 같이 나타낼 수 있다. (위에서 했음) 그렇다면 throughput의 평균은 얼마나 될까? 미시적(microscopic)으로 표현한다고 했을 때, 몇 가지 가정을 통해 이끌어낼 수 있다.
+
+기본적인 cwnd를 w라고 하고 loss event가 발생했을 때의 cwnd를 W라고 하자. 가정은 RTT와 W가 거의 일정해서 sending rate가 W/(2*RTT)~W/RTT 사이로 유지된다는 것이다.
+
+이런 가정 하에서 TCP는 cwnd가 W가 되면 절반으로 떨어뜨려서 W/2가 되지만 다시 MSS/RTT씩 증가(linear increase)시켜서 다시 W가 되고 이 과정이 반복된다. 결론적으로 2개의 cwnd 사이에서 throughput이 결정되는 것이기 때문에 이것으로 평균을 구할 수 있다.
+$$
+average\ throughput = \frac{0.75\times W}{RTT}
+$$
+
+
+# TCP Fairness
+
+지금까지 reliable data transfer, flow control, congestion control과 같은 TCP의 장점들을 살펴보았지만 여러명의 사용자는 고려하지 않았기 때문에 이걸 생각해보아야 한다.
+
+![image](https://user-images.githubusercontent.com/35518072/43180736-a3c1a516-9014-11e8-8df2-003534969a15.png)
+
+사용자 1,2가 TCP를 이용해 통신을 하는데 중간에 겹치는 라우터가 있는 경우이다. 라우터의 허용 크기가 R일 경우 각 사용자는 2/R씩 공평하게 사용할까? 직관적으로 생각해보면 각자 window size도 다르기 때문에 공평하지 않을 것 같지만 결국은 거의 공평하게 사용하게 된다.
+
+<img src="https://user-images.githubusercontent.com/35518072/43180854-3caf8cfc-9015-11e8-9010-bdd040d44f8a.png" width="400px">
+
+위 그래프를 보면 시작점이 A인데 사용자 1은 R/2만큼, 사용자 2는 그보다 훨씬적게 사용하는 것을 볼 수 있다. 여기서부터 시작하여 linear increase하게 되는데 최대 bandwidth인 R에 도달하게 되면 congestion이 발생하므로 각자의 cwnd를 반으로 줄이게 되서 B에서 C로 이동하게 되고 이런 방식을 통해 D에서 절반으로 다시 증가했다가 절반으로 되서 **각자가 거의 동일한 양의 bandwidth를 가지는 형태가 되기 때문에 TCP는 bandwidth를 공평하게 공유한다고 할 수 있다.**
+
+하지만 역시 변수가 있는 경우엔 해당이 안되는데 크게 2가지가 있다.
+
+* UDP가 개입하는 경우라면 어떤 것도 고려하지 않기 때문에 bandwidth를 상당히 차지한다.
+* 위의 결론은 connection level에서 동일한 개수의 TCP를 가지고 있는 경우이다. 만약 사용자 2가 TCP connection을 10개 열었다면 10R/11만큼 bandwidth를 차지할 것이다.
