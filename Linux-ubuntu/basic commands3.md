@@ -64,7 +64,7 @@ crontab -e # 명령어 정의할 때 에디터를 연다.
 crontab -l # 정의한 cron 출력
 ```
 
-# Staㅇrtup Script
+# Startup Script
 
 쉘을 시작할 때 프로그램이 실행되도록 할 수 있다.
 
