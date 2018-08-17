@@ -1,5 +1,7 @@
 [한양대학교 네트워크 강의](http://www.kocw.net/home/search/kemView.do?kemId=1169634)와 [Top-down approach](http://www.bau.edu.jo/UserPortal/UserProfile/PostsAttach/10617_1870_1.pdf)를 정리 및 참고한 것입니다.
 
+추가 : [How a DNS Server works?](https://www.youtube.com/watch?v=mpQZVYPuDGU) 강의가 상당히 괜찮다. 까먹으면 꼭 보자.
+
 # DNS(Domain Name System) 기본
 
 실제로 사람이 쓰기 위해 만든 것으로 원래는 프로세스간의 소켓 통신이다. 따라서 IP주소와 포트번호를 통해 통신을 하는데 웹서버의 경우 포트번호가 거의 80번으로 고정되어 있기 때문에, www.naver.com:80이라고 했을 때, 포트번호를 제외한 나머지 부분이 IP주소로 바뀌게 된다. 이걸 담당해주는 것이 DNS라는 시스템이다.
@@ -42,10 +44,10 @@ IP주소를 외우지 않고 DNS를 이용해 이름으로 접속할 수 있다�
 
 실제 DNS 서버에 record(행)가 저장될 때 총 4개의 필드로 구성되는데 위에서 봤던 호스트, IP주소, TTL을 제외하고 type이라는 것이 존재한다. (name, value, type, TTL)
 
-* **type =  A : 호스트 이름 + IP 주소인 경우**
-* **type = NS : 도메인 이름 + 해당 도메인 호스트 이름**
+* **type =  A : 호스트 이름 + IP 주소인 경우** (Address record)
+* **type = NS : 도메인 이름 + 해당 도메인 호스트 이름** (Name Server record)
 
-먼저 호스트와 도메인의 차이점을 분명히 할 필요가 있는데 호스트는 요청한 웹페이지를 가지고 있는 웹서버(컴퓨터) 자체를 지칭하는 말이고 도메인은 여러개의 호스트가 속한 네트워크를 지칭하는 말이다. 물론 도메인도 계층이 분류되고 누군가는 관리를 해야 하기 때문에 도메인을 관리하는 호스트 또한 존재한다.
+먼저 호스트와 도메인의 차이점을 분명히 할 필요가 있는데 웹페이지를 요청할 경우, 호스트는 요청한 웹페이지를 가지고 있는 웹서버(컴퓨터) 자체를 지칭하는 말이고 도메인은 여러개의 호스트가 속한 네트워크를 지칭하는 말이다. 물론 도메인도 계층이 분류되고 누군가는 관리를 해야 하기 때문에 도메인을 관리하는 호스트 또한 존재한다.
 
 예를 들어, root 서버를 보면 top-level domain을 관장하는데 .com이란 도메인을 관리하는 해당 호스트가 존재할 것이다. (.com, 호스트이름, NS, TTL) 이런식으로 하나의 record가 있을텐데, .com 중에서 어떤 호스트인지를 모르기 때문에 .com을 관장하는 호스트에 접근을 해야 한다. 접근하기 위해선 ip주소가 필요하므로 root 서버는 (호스트이름, ip주소, A, TTL) record도 같이 가지고 있어야 한다. 쉽게 이해하기 위해선 전체 과정을 한번 봐야 한다. 아까와 동일하게 서울대 학생이 한동대의 hisnet.handong.edu에 접속한다고 해보자.
 
@@ -59,12 +61,12 @@ IP주소를 외우지 않고 DNS를 이용해 이름으로 접속할 수 있다�
 
 # 기관을 만든 예
 
-예를 들어, 어떤 스타트업을 만들고 haram.com이라는 도메인을 생성했다고 하자. 그러면 위에서 말했다시피 authoritative DNS 서버를 가져야 하므로 www.haram.com에 접속했을시에 해당 호스트이 ip주소와 타입 A, TTL을 등록할 것이다. 하지만 추가적인 정보를 줘야 할 곳이 하나 더 있는데 바로 .com을 관장하는 호스트이다. 사람들로 하여금 www.haram.com에 접속할 수 있게 하기 위해선 www.haram.com을 관장하는 도메인의 호스트 ip주소를 알아야 한다. 그렇기 때문에 다음과 같이 .com을 관장하는 호스트에 record 값을 추가해주어야 한다.
+예를 들어, 어떤 스타트업을 만들고 haram.com이라는 도메인을 생성했다고 하자. 먼저 haram.com 도메인을 관장하는 authoritative DNS 서버에  programmer.haram.com에 접속했을시에 해당 호스트이 ip주소와 타입 A, TTL을 등록할 것이다. 하지만 추가적인 정보를 줘야 할 곳이 하나 더 있는데 바로 .com을 관장하는 호스트이다. 사람들로 하여금 programmer.haram.com에 접속할 수 있게 하기 위해선 programmer.haram.com을 관장하는 도메인의 호스트 ip주소를 알아야 하고 local name server에 없을 경우 root, TLD, authoritative 중 한 곳부터 찾을 것이기 때문에 다음과 같이 .com을 관장하는 호스트에 record 값을 추가해주어야 한다.
 
-* (haram.com, dns.haram.com, NS, TTL) : 도메인과 도메인의 호스트 이름
-* (dns.haram.com, 7.7.7.7, A, TTL) : 도메인 호스트와 IP주소
+* **(haram.com, dns.haram.com, NS, TTL) : 도메인과 도메인의 호스트 이름**
+* **(dns.haram.com, 7.7.7.7, A, TTL) : 도메인 호스트와 IP주소**
 
-이렇게 record를 추가해주어야 haram.com의 호스트 ip주소를 통해 haram.com의 authoritative DNS 서버에 접근하게 되고 www.haram.com 호스트를 찾게 되서 접속할 수 있는 것이다.
+첫번째는 haram.com 도메인을 관장하는 호스트 이름을 저장한 것이고 두번째는 그 호스트 이름의 ip주소를 저장한 것이다. 첫번째를 먼저 보고 두번째를 본 후에 해당 호스트의 ip주소에 programmer.haram.com의 ip주소를 달라고 요청하는 방식이다.
 
 
 
