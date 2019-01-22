@@ -1,7 +1,9 @@
 ---
 layout: post
-category: flutter
 title: "[Flutter]WillPopScope"
+category: Flutter(플러터)
+permalink: /flutter/:year/:month/:day/:title/
+tags: [플러터, 다트]
 ---
 
 대부분의 앱이 첫 화면에서 뒤로 가기 버튼을 누르면 "정말로 종료하시겠습니까?"와 같은 확인 창이 뜬다. 이런 기능은 어떻게 구현할 수 있을까? [WillPopScope](https://docs.flutter.io/flutter/widgets/WillPopScope-class.html) 위젯을 사용하면 간단하게 구현할 수 있다.

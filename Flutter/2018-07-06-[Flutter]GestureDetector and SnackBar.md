@@ -1,7 +1,9 @@
 ---
 layout: post
-category: flutter
 title: "[Flutter]GestureDetector를 통해 SnackBar 띄우기"
+category: Flutter(플러터)
+permalink: /flutter/:year/:month/:day/:title/
+tags: [플러터, 다트]
 ---
 
 # GestureDetector

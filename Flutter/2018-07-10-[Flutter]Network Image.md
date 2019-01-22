@@ -1,7 +1,9 @@
 ---
 layout: post
-category: flutter
 title: "[Flutter]인터넷에서 이미지 가져오기"
+category: Flutter(플러터)
+permalink: /flutter/:year/:month/:day/:title/
+tags: [플러터, 다트]
 ---
 
 플러터 쿡북에서는 3가지 방법을 소개한다.

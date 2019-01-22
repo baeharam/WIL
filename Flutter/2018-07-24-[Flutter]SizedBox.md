@@ -1,7 +1,9 @@
 ---
 layout: post
-category: flutter
 title: "[Flutter]SizedBox"
+category: Flutter(플러터)
+permalink: /flutter/:year/:month/:day/:title/
+tags: [플러터, 다트]
 ---
 
 특정한 크기를 갖는 박스로 레퍼런스에는 다음과 같이 나와있다.

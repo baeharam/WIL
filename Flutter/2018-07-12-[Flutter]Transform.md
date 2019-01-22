@@ -1,7 +1,9 @@
 ---
 layout: post
-category: flutter
 title: "[Flutter]Matrix4 위젯으로 변형시키기"
+category: Flutter(플러터)
+permalink: /flutter/:year/:month/:day/:title/
+tags: [플러터, 다트]
 ---
 
 [Matrix4](https://docs.flutter.io/flutter/vector_math/Matrix4-class.html)는 Transform을이용해서 child 위젯을 변형시킬 때 transform 속성 값으로 사용하는 위젯이다. 다양하게 변형시킬 수 있고 애니메이션을 줄 때 아주 많이 사용되기 때문에 반드시 알아야 한다.

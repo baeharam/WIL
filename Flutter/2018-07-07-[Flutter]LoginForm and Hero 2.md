@@ -1,7 +1,9 @@
 ---
 layout: post
-category: flutter
 title: "[Flutter]LoginForm과 Hero를 이용한 화면전환-2"
+category: Flutter(플러터)
+permalink: /flutter/:year/:month/:day/:title/
+tags: [플러터, 다트]
 ---
 
 **다음 글은 유튜브 [Kodeversitas](https://www.youtube.com/watch?v=efbB8-x9T2c) 님의 강의를 보고 정리하는 포스팅입니다.**

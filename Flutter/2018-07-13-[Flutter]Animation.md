@@ -1,7 +1,9 @@
 ---
 layout: post
-category: flutter
 title: "[Flutter]Animation에 관련된 위젯들"
+category: Flutter(플러터)
+permalink: /flutter/:year/:month/:day/:title/
+tags: [플러터, 다트]
 ---
 
 앱의 접근성을 좋게하고 비주얼적으로 효과를 주기 위해서 애니메이션은 필수다. 그래서 플러터에서 사용되는 애니메이션을 정리하고자 한다. 튜토리얼조차 양이 방대하기 때문에 먼저 가장 기초적으로 어떤 위젯(클래스)들이 있는지 살펴보자.

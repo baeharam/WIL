@@ -1,7 +1,9 @@
 ---
 layout: post
-category: flutter
 title: "[Flutter]Tab, Drawer, Orientation"
+category: Flutter(플러터)
+permalink: /flutter/:year/:month/:day/:title/
+tags: [플러터, 다트]
 ---
 
 # Tab

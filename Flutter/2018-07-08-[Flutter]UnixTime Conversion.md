@@ -1,7 +1,9 @@
 ---
 layout: post
-category: flutter
 title: "[Flutter]유닉스 시간을 readable format으로 바꾸기"
+category: Flutter(플러터)
+permalink: /flutter/:year/:month/:day/:title/
+tags: [플러터, 다트]
 ---
 
 [유닉스 시간](https://namu.wiki/w/%EC%9C%A0%EB%8B%89%EC%8A%A4%20%EC%8B%9C%EA%B0%84)은 1970년 1월 1일 0:0:0인 UTC에서 몇초가 지났는지 표시하는 방법으로 사람이 읽을 수 있는 포맷으로 바꾸기 위해선 1단계를 거쳐야 하며 좀 더 읽기 쉽게 1단계를 더 거칠 수 있다.

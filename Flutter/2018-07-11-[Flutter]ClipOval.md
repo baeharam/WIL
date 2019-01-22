@@ -1,7 +1,9 @@
 ---
 layout: post
-category: flutter
 title: "[Flutter]ClipOval로 이미지를 둥글게 만들기"
+category: Flutter(플러터)
+permalink: /flutter/:year/:month/:day/:title/
+tags: [플러터, 다트]
 ---
 
 [ClipOval](https://docs.flutter.io/flutter/widgets/ClipOval-class.html)은 child를 타원형으로 잘라주는 위젯인데, 어떻게 자르냐는 속성 값을 정할 수 있다. clipper라는 속성이며 기본값은 해당 위젯이 속한 bounding box의 축 기준으로 자른다는데, 위젯을 감싸고 있는 다른 위젯 기준으로 자른다는 말과 동일한 것 같다.

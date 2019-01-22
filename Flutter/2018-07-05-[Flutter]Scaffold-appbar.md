@@ -1,7 +1,9 @@
 ---
 layout: post
-category: flutter
 title: "[Flutter]Scaffold에서 AppBar 사용하기"
+category: Flutter(플러터)
+permalink: /flutter/:year/:month/:day/:title/
+tags: [플러터, 다트]
 ---
 
 # Scaffold 위젯

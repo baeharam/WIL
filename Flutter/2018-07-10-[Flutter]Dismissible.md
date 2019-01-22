@@ -1,7 +1,9 @@
 ---
 layout: post
-category: flutter
 title: "[Flutter]Dismissible 이용해서 아이템 제거하기"
+category: Flutter(플러터)
+permalink: /flutter/:year/:month/:day/:title/
+tags: [플러터, 다트]
 ---
 
 앱을 이용하다 보면 여러개의 목록이 나열되어있을 때 단순 드래그를 통해 각 아이템들을 없앨 때가 있는데 그 때 사용하는 것이 [Dismissible](https://docs.flutter.io/flutter/widgets/Dismissible-class.html) 위젯이다. 제거할 수 있는 아이템들을 이 위젯으로 감싸면 그 기능을 수행할 수 있다. 먼저 아이템을 넉넉하게 만들자.

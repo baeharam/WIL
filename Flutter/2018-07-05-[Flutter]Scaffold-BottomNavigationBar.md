@@ -1,7 +1,9 @@
 ---
 layout: post
-category: flutter
 title: "[Flutter]Scaffold에서 BottomNavigationBar 구현하기"
+category: Flutter(플러터)
+permalink: /flutter/:year/:month/:day/:title/
+tags: [플러터, 다트]
 ---
 
 <img src="https://user-images.githubusercontent.com/1096485/32510613-7bcce9f2-c3f1-11e7-8e6f-49df37b1109c.png">

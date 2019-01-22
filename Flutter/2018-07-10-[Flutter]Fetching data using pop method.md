@@ -1,7 +1,9 @@
 ---
 layout: post
-category: flutter
 title: "[Flutter]페이지 전환하면서 데이터 가져오기"
+category: Flutter(플러터)
+permalink: /flutter/:year/:month/:day/:title/
+tags: [플러터, 다트]
 ---
 
 앱에서의 화면/페이지 전환은 굉장히 자주 일어나기 때문에 기본 중에 기본이라고 할 수 있다. 전에 많이 봤던 Navigator 위젯을 활용하면 push/pop 메소드를 통해 왔다갔다 할 수 있다. 그런데 만약 해당 페이지에서 데이터를 가져오기 위해선 어떻게 해야 할까? push 메소드의 레퍼런스를 보면 pop 메소드를 수행했을 때의 result 값을 받는다고 나와있다.

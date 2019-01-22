@@ -1,7 +1,9 @@
 ---
 layout: post
-category: flutter
-title: "[Flutter]Row"
+title: "[Flutter] Row"
+category: Flutter(플러터)
+permalink: /flutter/:year/:month/:day/:title/
+tags: [플러터, 다트]
 ---
 
 <img src="https://cdn-images-1.medium.com/max/1000/1*nyRvV8qDCG13aUTJdjvGeg.png">

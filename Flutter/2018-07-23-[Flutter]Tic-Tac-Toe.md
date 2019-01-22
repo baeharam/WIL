@@ -1,7 +1,9 @@
 ---
 layout: post
-category: flutter
 title: "[Flutter]Tic Tac Toe를 하면서 배운 것들"
+category: Flutter(플러터)
+permalink: /flutter/:year/:month/:day/:title/
+tags: [플러터, 다트]
 ---
 
 [MTechViral](https://www.youtube.com/watch?v=u1KD6Kz0PIQ)님의 강의를 보면서 배웠던 위젯이나 함수들을 정리한 내용입니다.

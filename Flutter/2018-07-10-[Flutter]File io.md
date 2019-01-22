@@ -1,7 +1,9 @@
 ---
 layout: post
-category: flutter
 title: "[Flutter]파일에 쓰고 읽기"
+category: Flutter(플러터)
+permalink: /flutter/:year/:month/:day/:title/
+tags: [플러터, 다트]
 ---
 
 전형적인 File I/O이다. 앱이 삭제되기 전까지는 지속해서 데이터를 저장할 수 있는 디렉토리에 읽고 쓴다. 이렇게 되면 앱이 꺼지고 다시 켜졌을 때에도 저장되있던 해당 데이터는 보존이 된다. 플러터에서 file i/o를 하기 위해선 먼저 이용할 디렉토리의 경로(path)를 알아야 하는데 안드로이드와 iOS의 디렉토리가 모두 다르다. 이를 독립적으로 하나의 패키지를 통해 할 수 있게 해주는데 [path_provider](https://pub.dartlang.org/packages/path_provider#-readme-tab-)라는 패키지이다. 메소드 하나로 플랫폼에 상관없이 임시/영구 디렉토리의 경로를 가져올 수 있다. 또한 file i/o를 위한 라이브러리 dart:io 도 당연히 import 시켜야 한다.

@@ -1,7 +1,9 @@
 ---
 layout: post
-category: flutter
 title: "[Flutter]RawMaterialButton으로 버튼 커스터마이징 하기"
+category: Flutter(플러터)
+permalink: /flutter/:year/:month/:day/:title/
+tags: [플러터, 다트]
 ---
 
 이제까지 종종 사용했던 버튼들은 RaisedButton이나 FlatButton이었지만 실제적으로 버튼을 커스터마이징하려면 [RawMaterialButton](https://docs.flutter.io/flutter/material/RawMaterialButton-class.html)을 사용해야 한다. 다양한 속성들이 있으니 한번 보자.

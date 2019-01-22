@@ -1,7 +1,9 @@
 ---
 layout: post
-category: flutter
 title: "[Flutter]StreamController를 이용한 사진 받아오기"
+category: Flutter(플러터)
+permalink: /flutter/:year/:month/:day/:title/
+tags: [플러터, 다트]
 ---
 
 # Photo 클래스

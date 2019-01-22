@@ -1,7 +1,9 @@
 ---
 layout: post
-category: flutter
 title: "[Flutter]Form을 이용한 데이터 받아오기와 제약걸기"
+category: Flutter(플러터)
+permalink: /flutter/:year/:month/:day/:title/
+tags: [플러터, 다트]
 ---
 
 이제까지 TextField나 TextFormField를 사용할 때 입력한 텍스트를 받아오기 위해서 TextEditingController 위젯을 사용했지만 Form에 해당되는 FormState 타입의 key 값을 이용해서도 해당 데이터를 받아올 수 있다.

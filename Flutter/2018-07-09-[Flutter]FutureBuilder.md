@@ -1,7 +1,9 @@
 ---
 layout: post
-category: flutter
 title: "[Flutter]FutureBuilder를 사용해서 위젯 업데이트 하기"
+category: Flutter(플러터)
+permalink: /flutter/:year/:month/:day/:title/
+tags: [플러터, 다트]
 ---
 
 Future 클래스를 이용해서 데이터를 받고 그 데이터를 이용해서 위젯을 생성하고 싶을 때 FutureBuilder 클래스를 이용할 수 있다. FutureBuilder는 다음과 같은 속성들을 지닌다.

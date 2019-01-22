@@ -1,7 +1,9 @@
 ---
 layout: post
-category: flutter
 title: "[Flutter]위젯(Widgets)"
+category: Flutter(플러터)
+permalink: /flutter/:year/:month/:day/:title/
+tags: [플러터, 다트]
 ---
 
 # 모든 컴포넌트는 위젯이다.

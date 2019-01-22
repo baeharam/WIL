@@ -1,7 +1,9 @@
 ---
 layout: post
-category: flutter
 title: "[Flutter]Scaffold에서 FloatingActionButton 구현하기"
+category: Flutter(플러터)
+permalink: /flutter/:year/:month/:day/:title/
+tags: [플러터, 다트]
 ---
 
 <img src="https://cocoacontrols-production.s3.amazonaws.com/uploads/control_image/image/6540/iOS_Simulator_Screen_Shot_25.05.2015_20.54.49.png" width="200px">

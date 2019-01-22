@@ -1,7 +1,9 @@
 ---
 layout: post
-category: flutter
 title: "[Flutter]다른 타입의 아이템을 가진 List"
+category: Flutter(플러터)
+permalink: /flutter/:year/:month/:day/:title/
+tags: [플러터, 다트]
 ---
 
 List를 만들 때 여러가지 타입의 위젯으로 표현하고 싶을 때가 있을수도 있다. 그 때는 특별한 위젯을 사용하는 것이 아니라 사용자가 추상클래스를 정의하는 형태로 구현할 수 있다. 먼저 2가지 타입이 있다고 하고 대표적인 추상 클래스를 만들자.
