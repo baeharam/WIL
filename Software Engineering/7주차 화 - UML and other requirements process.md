@@ -1,4 +1,4 @@
-# Software Engineering Week 6 (1)
+# Software Engineering Week 7 (1)
 
 * **예시에서 UC를 작성하고 diagram을 만든 상태**
   * UC를 만들고 stakeholders에게 가져가서 회의를 해야 한다.
