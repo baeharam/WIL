@@ -146,3 +146,10 @@ Resolving real path for '/Users/haram/haram/ts-practice/node_modules/lodash/loda
 ### 다양한 옵션들
 
 이런 기본적인 메커니즘 외에도 `tsconfig.json` 파일의 다양한 컴파일 옵션들을 통해서 단계가 추가되거나 바뀔 수 있다. `paths` , `types` , `typeRoots` 등 옵션들이 많은데, 때에 따라 적용해서 사용하면 쓸모있을 것이다.
+
+
+
+### 참고
+
+* [타입스크립트 컴파일러가 모듈 타입 선언을 참조하는 과정](https://medium.com/naver-fe-platform/타입스크립트-컴파일러가-모듈-타입-선언을-참조하는-과정-5bfc55a88bb6)
+* [Module Resolution](https://www.typescriptlang.org/docs/handbook/module-resolution.html#module-resolution-strategies)
