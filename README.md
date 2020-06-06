@@ -29,3 +29,8 @@
 ### Sass
 
 * [@import vs @use의 차이점](./sass/import-use.md)
+
+### Typescript
+
+* [모듈 처리 메커니즘](./typescript/module-resolution.md)
+
