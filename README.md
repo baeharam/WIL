@@ -33,4 +33,5 @@
 ### Typescript
 
 * [모듈 처리 메커니즘](./typescript/module-resolution.md)
+* [Tagged union](./typescript/tagged-union.md)
 
