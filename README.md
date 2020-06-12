@@ -18,20 +18,21 @@
 
 ### 정리되는 문서들
 
+### Typescript
+
+* [모듈 처리 메커니즘](./typescript/module-resolution.md)
+* [Tagged union](./typescript/tagged-union.md)
+
 ### git
 
 * [HEAD^ 와 HEAD~의 차이점](./git/head-caret-tilde.md)
-
-### 보안
-
-* [Bearer 토큰](./보안/bearer-token.md)
+* [여러개의 커밋들을 cherry-pick 하는 방법](./git/cherry-pick-range.md)
 
 ### Sass
 
 * [@import vs @use의 차이점](./sass/import-use.md)
 
-### Typescript
+### 보안
 
-* [모듈 처리 메커니즘](./typescript/module-resolution.md)
-* [Tagged union](./typescript/tagged-union.md)
+* [Bearer 토큰](./보안/bearer-token.md)
 
