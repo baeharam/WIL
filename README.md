@@ -27,6 +27,7 @@
 
 * [HEAD^ 와 HEAD~의 차이점](./git/head-caret-tilde.md)
 * [여러개의 커밋들을 cherry-pick 하는 방법](./git/cherry-pick-range.md)
+* [Detached HEAD](./git/detached-head.md)
 
 ### Sass
 
