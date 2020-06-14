@@ -37,6 +37,10 @@
 
 * [@import vs @use의 차이점](./sass/import-use.md)
 
+### Yarn
+
+* [yarn.lock의 역할](./yarn/yarn-lock.md)
+
 ### 보안
 
 * [Bearer 토큰](./보안/bearer-token.md)
