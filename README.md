@@ -37,9 +37,10 @@
 
 * [@import vs @use의 차이점](./sass/import-use.md)
 
-### Yarn
+### Node Package Manager
 
-* [yarn.lock의 역할](./yarn/yarn-lock.md)
+* [yarn.lock의 역할](./package-manager/yarn-lock.md)
+* [npx](./package-manager/npx.md)
 
 ### 보안
 
