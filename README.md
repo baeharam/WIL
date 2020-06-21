@@ -37,6 +37,7 @@
 ### HTML
 
 * [tabindex](./html/tabindex.md)
+* [readonly vs disabled](./html/readonly-disabled.md)
 
 ### Sass
 
