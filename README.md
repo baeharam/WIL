@@ -48,7 +48,10 @@
 * [yarn.lock의 역할](./package-manager/yarn-lock.md)
 * [npx](./package-manager/npx.md)
 
+### Cypress
+
+* [명령어의 실행 순서](./cypress/execution-order.md)
+
 ### 보안
 
 * [Bearer 토큰](./보안/bearer-token.md)
-
