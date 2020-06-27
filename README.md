@@ -38,6 +38,7 @@
 
 * [tabindex](./html/tabindex.md)
 * [readonly vs disabled](./html/readonly-disabled.md)
+* [Element.closest()](./html/closest.md)
 
 ### Sass
 
