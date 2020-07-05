@@ -30,6 +30,7 @@
 * [여러개의 커밋들을 cherry-pick 하는 방법](./git/cherry-pick-range.md)
 * [Detached HEAD](./git/detached-head.md)
 * [여러가지 git diff](./git/diff.md)
+* [refspec](./git/refspec.md)
 
 ### CSS
 
