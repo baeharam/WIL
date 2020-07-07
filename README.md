@@ -18,6 +18,10 @@
 
 ### 정리되는 문서들
 
+### Javascript
+
+* [reject vs throw](./javascript/reject-throw.md)
+
 ### Typescript
 
 * [모듈 처리 메커니즘](./typescript/module-resolution.md)
