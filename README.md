@@ -45,6 +45,7 @@
 * [tabindex](./html/tabindex.md)
 * [readonly vs disabled](./html/readonly-disabled.md)
 * [Element.closest()](./html/closest.md)
+* [DOM 엘리먼트를 가져오는 방법들](./html/get-dom.md)
 
 ### Sass
 
