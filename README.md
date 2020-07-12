@@ -64,3 +64,4 @@
 ### 보안
 
 * [Bearer 토큰](./보안/bearer-token.md)
+* [target="_blank"의 취약성](./보안/_blank-vulnerability.md)
