@@ -35,6 +35,7 @@
 * [Detached HEAD](./git/detached-head.md)
 * [여러가지 git diff](./git/diff.md)
 * [refspec](./git/refspec.md)
+* [.gitignore 인식 실패할 때](./git/gitignore-failure.md)
 
 ### CSS
 
