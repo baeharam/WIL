@@ -37,6 +37,7 @@
 * [refspec](./git/refspec.md)
 * [.gitignore 인식 실패할 때](./git/gitignore-failure.md)
 * [git status --porcelain](./git/status-porcelain.md)
+* [git stash apply가 커밋과 충돌할 때 되돌리는 법](./git/stash-conflict-rollback.md)
 
 ### CSS
 
