@@ -28,6 +28,7 @@
 * [Tagged union](./typescript/tagged-union.md)
 * [유틸리티 타입](./typescript/utility.md)
 * [const assertion](./typescript/const-assertion.md)
+* [enum 을 사용하면 좋지 않은 이유](./typescript/why-enum-is-bad.md)
 
 ### git
 
