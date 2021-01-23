@@ -27,6 +27,7 @@
 * [모듈 처리 메커니즘](./typescript/module-resolution.md)
 * [Tagged union](./typescript/tagged-union.md)
 * [유틸리티 타입](./typescript/utility.md)
+* [const assertion](./typescript/const-assertion.md)
 
 ### git
 
