@@ -74,3 +74,7 @@
 ### Shell
 
 * [프로세스 치환](./shell/process-substitution.md)
+
+### 시스템
+
+* [하드 링크 vs 심볼릭 링크](./system/hard-symbolic.md)
