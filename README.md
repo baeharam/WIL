@@ -44,6 +44,7 @@
 ### CSS
 
 * [쌓임 맥락과 쌓임 순서 확실하게 이해하기](./css/stacking-context-property.md)
+* [position: sticky](./css/sticky.md)
 
 ### HTML
 
